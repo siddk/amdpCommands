@@ -6,7 +6,7 @@ import structures.Counts;
 import structures.DefaultDict;
 import structures.ParallelCorpus;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Core class for the IBM Model 1 Translation System. Used to learn simple (naive) translation
@@ -51,7 +51,7 @@ public class IBM1<S extends LanguageExpression,T extends LanguageExpression> ext
      * Set all Translation (Tau) Probabilities to be uniform.
      */
     public void setUniformProbabilities() {
-        double initialProb = 1 / this.targetVocabulary.size();
+        double initialProb = 1.0 / this.targetVocabulary.size();
 
         for (String t : this.targetVocabulary) {
             // Set each tau value to the initial Probability
@@ -68,12 +68,12 @@ public class IBM1<S extends LanguageExpression,T extends LanguageExpression> ext
         // E - Step
         for (int i = 0; i < this.corpus.size(); i++) {
             AlignedSent alignedSent = this.corpus.get(i);
-            ArrayList<String> targetSent = alignedSent.getWords();
-            ArrayList<String> sourceSent = alignedSent.getMots();
+            List<String> targetSent = alignedSent.getSourceWords();
+            List<String> sourceSent = alignedSent.getTargetWords();
             sourceSent.add(0, NULL); // Prepend NULL Token
 
             // E - Step (a) - Compute normalization factors
-            DefaultDict<String, Double> total_count = new DefaultDict<String, Double>(0.0);
+            DefaultDict<String, Double> total_count = new DefaultDict<>(0.0);
             for (String t : targetSent) {
                 for (String s : sourceSent) {
                     total_count.put(t, total_count.get(t) + this.tau.get(t).get(s));

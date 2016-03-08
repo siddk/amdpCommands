@@ -12,9 +12,8 @@ public class Counts {
     public DefaultDict<String, Double> nTO;
 
     public Counts() {
-        this.nTS = new DefaultDict<String,
-                DefaultDict<String, Double>>(new DefaultDict<String, Double>(0.0));
-        this.nTO = new DefaultDict<String, Double>(0.0);
+        this.nTS = new DefaultDict<>(new DefaultDict<>(0.0));
+        this.nTO = new DefaultDict<>(0.0);
     }
 
 }
