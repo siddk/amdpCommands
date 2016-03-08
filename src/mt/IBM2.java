@@ -1,5 +1,10 @@
 package mt;
 
+import structures.Pair;
+import structures.ParallelCorpus;
+
+import java.util.HashSet;
+
 /**
  * Core class for the IBM Model 2 Translation system. Learns translation probabilities and
  * alignment probabilities from a corpus of weakly aligned sentences. In this model, an alignment
@@ -28,5 +33,32 @@ package mt;
  *
  * Created by Sidd Karamcheti on 3/8/16.
  */
-public class IBM2 {
+public class IBM2 extends IBMModel {
+    /**
+     * Instantiate an IBM Model 2 instance with a given Parallel Corpus, and a set number
+     * of EM iterations.
+     *
+     * @param corpus Weakly aligned parallel corpus.
+     * @param em_iterations Number of EM iterations for training.
+     */
+    public IBM2(ParallelCorpus corpus, int em_iterations) {
+        super(corpus);
+
+        // Initialize tau translation probabilities by running a few iterations of Model 1 training
+        IBM1 ibm1 = new IBM1(corpus, em_iterations);
+        this.tau = ibm1.tau;
+
+        // Initialize all delta probabilities
+        this.setUniformProbabilities();
+
+
+    }
+
+    /**
+     * Set all alignment (Delta) probabilities to be uniform.
+     */
+    public void setUniformProbabilities() {
+        // a(i | j, l, m) = 1 / (l + 1) for all i, j, l, m
+        HashSet<Pair<Integer, Integer>> lmCombinations = new HashSet<>();
+    }
 }
