@@ -2,6 +2,10 @@ package structures;
 
 import language.LanguageExpression;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -20,6 +24,14 @@ public class ParallelCorpus<S extends LanguageExpression,T extends LanguageExpre
      */
     public ParallelCorpus(String sourcePath, String targetPath) {
         // TODO
+        try(BufferedReader brs = new BufferedReader(new FileReader(sourcePath));
+            BufferedReader brt = new BufferedReader(new FileReader(targetPath))){
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
