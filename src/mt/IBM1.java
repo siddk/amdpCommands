@@ -50,7 +50,7 @@ public class IBM1 extends IBMModel {
      * Set all Translation (Tau) Probabilities to be uniform.
      */
     public void setUniformProbabilities() {
-        double initialProb = 1 / this.targetVocabulary.size();
+        double initialProb = 1.0 / this.targetVocabulary.size();
 
         for (String t : this.targetVocabulary) {
             // Set each tau value to the initial Probability
@@ -72,7 +72,7 @@ public class IBM1 extends IBMModel {
             sourceSent.add(0, NULL); // Prepend NULL Token
 
             // E - Step (a) - Compute normalization factors
-            DefaultDict<String, Double> total_count = new DefaultDict<String, Double>(0.0);
+            DefaultDict<String, Double> total_count = new DefaultDict<>(0.0);
             for (String t : targetSent) {
                 for (String s : sourceSent) {
                     total_count.put(t, total_count.get(t) + this.tau.get(t).get(s));
