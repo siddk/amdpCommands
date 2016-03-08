@@ -1,4 +1,4 @@
-package corpus;
+package structures;
 
 import java.util.ArrayList;
 
@@ -8,8 +8,7 @@ import java.util.ArrayList;
  * Created by Sidd Karamcheti on 3/7/16.
  */
 public class ParallelCorpus {
-    public ArrayList<String> source;
-    public ArrayList<String> target;
+    public ArrayList<AlignedSent> corpus;
 
     /**
      * Build ParallelCorpus from file paths to source and target corpuses.
@@ -19,6 +18,24 @@ public class ParallelCorpus {
      */
     public ParallelCorpus(String sourcePath, String targetPath) {
         // TODO
+    }
+
+    /**
+     * Get size (number of sentences) in the given Parallel Corpus.
+     *
+     * @return Number of sentences in corpus.
+     */
+    public int size() {
+        return this.corpus.size();
+    }
+
+    /**
+     * Get an AlignedSentence given an index in the Parallel Corpus.
+     *
+     * @param index Index to retrieve sentence from in Corpus.
+     */
+    public AlignedSent get(int index) {
+        return this.corpus.get(index);
     }
 
 }
