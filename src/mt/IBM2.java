@@ -1,10 +1,8 @@
 package mt;
 
-import structures.AlignedSent;
-import structures.DefaultDict;
-import structures.Pair;
-import structures.ParallelCorpus;
+import structures.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
@@ -93,6 +91,63 @@ public class IBM2 extends IBMModel {
      * Run one iteration of EM, using the given tau and delta values as prior probabilities.
      */
     public void train() {
+        AlignmentCounts counts = new AlignmentCounts();
 
+        // E - Step
+        for (int index = 0; index < this.corpus.size(); index++) {
+            AlignedSent alignedSent = this.corpus.get(index);
+            ArrayList<String> targetSent = alignedSent.getWords();
+            ArrayList<String> sourceSent = alignedSent.getMots();
+            sourceSent.add(0, NULL); // Prepend NULL Token
+            targetSent.add(0, "UNUSED"); // 1 - Indexed
+
+            int l = sourceSent.size() - 1;
+            int m = targetSent.size() - 1;
+
+            // E - Step (a) - Compute normalization factors
+            DefaultDict<String, Double> totalCount = new DefaultDict<String, Double>(0.0);
+            for (int j = 1; j < targetSent.size(); j++) {
+                String t = targetSent.get(j);
+                for (int i = 0; i < sourceSent.size(); i++) {
+                    String s = sourceSent.get(i);
+                    totalCount.put(t,
+                                   this.tau.get(t).get(s) * this.delta.get(i).get(j).get(l).get(m));
+                }
+            }
+
+            // E - Step (b) - Compute counts
+            for (int j = 1; j < targetSent.size(); j++) {
+                String t = targetSent.get(j);
+                for (int i = 0; i < sourceSent.size(); i++) {
+                    String s = sourceSent.get(i);
+                    double count = this.tau.get(t).get(s) * this.delta.get(i).get(j).get(l).get(m);
+                    double normalized_count = count / totalCount.get(t);
+                    counts.updateTau(normalized_count, s, t);
+                    counts.updateDelta(normalized_count, i, j, l, m);
+                }
+            }
+        }
+
+        // M - Step
+        // Reset Tau - Values
+        for (String t : counts.nTS.keySet()) {
+            for (String s : counts.nTS.get(t).keySet()) {
+                double estimate = counts.nTS.get(t).get(s) / counts.nTO.get(s);
+                this.tau.get(t).put(s, Math.max(estimate, MIN_PROB));
+            }
+        }
+
+        // Reset Delta - Values
+        for (int i : counts.nIJLM.keySet()) {
+            for (int j : counts.nIJLM.get(i).keySet()) {
+                for (int l : counts.nIJLM.get(i).get(j).keySet()) {
+                    for (int m : counts.nIJLM.get(i).get(j).get(l).keySet()) {
+                        double estimate = counts.nIJLM.get(i).get(j).get(l).get(m) /
+                                          counts.nIO.get(j).get(l).get(m);
+                        this.delta.get(i).get(j).get(l).put(m, Math.max(estimate, MIN_PROB));
+                    }
+                }
+            }
+        }
     }
 }
