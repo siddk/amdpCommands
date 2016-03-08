@@ -1,6 +1,7 @@
 package structures;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Simple Alignment class, represented of a list of Integer-Integer Pairs.
@@ -8,13 +9,13 @@ import java.util.ArrayList;
  * Created by Sidd Karamcheti on 3/7/16.
  */
 public class Alignment {
-    ArrayList<Pair<Integer, Integer>> alignment;
+    List<Pair<Integer, Integer>> alignment;
 
     /**
      * Default Alignment Constructor.
      */
     public Alignment() {
-        this.alignment = new ArrayList<Pair<Integer, Integer>>();
+        this.alignment = new ArrayList<>();
     }
 
     /**
@@ -22,7 +23,7 @@ public class Alignment {
      *
      * @param alignment List of Integer-Integer Pairs.
      */
-    public Alignment(ArrayList<Pair<Integer, Integer>> alignment) {
+    public Alignment(List<Pair<Integer, Integer>> alignment) {
         this.alignment = alignment;
     }
 

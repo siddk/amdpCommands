@@ -1,9 +1,11 @@
 package mt;
 
+import language.LanguageExpression;
 import structures.ParallelCorpus;
 import structures.DefaultDict;
 
 import java.util.HashSet;
+import java.util.Set;
 
 /**
  * General Abstract Class for the IBM Model Series of Machine Translation Systems. Implements
@@ -15,7 +17,7 @@ import java.util.HashSet;
  *
  * Created by Sidd Karamcheti on 3/7/16.
  */
-public abstract class IBMModel {
+public abstract class IBMModel<S extends LanguageExpression,T extends LanguageExpression> {
     /* tau[str][str]: double ==> Probability(target word | source word)
      * Indexed as tau.get(target_word).get(source_word) */
     DefaultDict<String, DefaultDict<String, Double>> tau;
@@ -25,9 +27,9 @@ public abstract class IBMModel {
     DefaultDict<Integer,
             DefaultDict<Integer, DefaultDict<Integer, DefaultDict<Integer, Double>>>> delta;
 
-    ParallelCorpus corpus;
-    HashSet<String> sourceVocabulary;
-    HashSet<String> targetVocabulary;
+    ParallelCorpus<S,T> corpus;
+    Set<String> sourceVocabulary;
+    Set<String> targetVocabulary;
     static final String NULL = "**N**";
     static final double MIN_PROB = 1.0e-12;
 

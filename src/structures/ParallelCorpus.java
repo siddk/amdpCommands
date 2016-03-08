@@ -1,14 +1,16 @@
 package structures;
 
-import java.util.ArrayList;
+import language.LanguageExpression;
+
+import java.util.List;
 
 /**
  * Define a Parallel Corpus as two sets of aligned sentences in different languages.
  *
  * Created by Sidd Karamcheti on 3/7/16.
  */
-public class ParallelCorpus {
-    public ArrayList<AlignedSent> corpus;
+public class ParallelCorpus<S extends LanguageExpression,T extends LanguageExpression> {
+    public List<AlignedSent<S,T>> corpus;
 
     /**
      * Build ParallelCorpus from file paths to source and target corpuses.
@@ -34,7 +36,7 @@ public class ParallelCorpus {
      *
      * @param index Index to retrieve sentence from in Corpus.
      */
-    public AlignedSent get(int index) {
+    public AlignedSent<S,T> get(int index) {
         return this.corpus.get(index);
     }
 

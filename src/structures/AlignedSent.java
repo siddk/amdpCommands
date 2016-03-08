@@ -1,53 +1,55 @@
 package structures;
 
-import java.util.ArrayList;
+import language.LanguageExpression;
+
+import java.util.List;
 
 /**
- * Structure that defines an AlignedSent object, consisting of two sentences and an alignment
+ * Structure that defines an AlignedSent object, consisting of two language expressions and an alignment
  * between them.
  *
  * Created by Sidd Karamcheti on 3/7/16.
  */
-public class AlignedSent {
-    ArrayList<String> words;
-    ArrayList<String> mots;
-    Alignment align;
+public class AlignedSent<S extends LanguageExpression,T extends LanguageExpression> {
+    protected final S source;
+    protected final T target;
+    protected final Alignment align;
 
     /**
      * Creates an Aligned Sentence with words, target words (mots).
      *
-     * @param words List of source words.
-     * @param mots List of target words.
+     * @param source Expression of the source language
+     * @param target Expression of the target language
      */
-    public AlignedSent(ArrayList<String> words, ArrayList<String> mots) {
-        this.words = words;
-        this.mots = mots;
+    public AlignedSent(S source, T target) {
+        this.source = source;
+        this.target = target;
         this.align = new Alignment();
     }
 
     /**
-     * Creates an Aligned Sentence with words, target words (mots), and a specified alignment.
+     * Creates an Aligned Sentence with two language expressions and a specified alignment.
      *
-     * @param words List of source words.
-     * @param mots List of target words.
+     * @param source Expression of the source language
+     * @param target Expression of the target language
      * @param align Predefined alignment.
      */
-    public AlignedSent(ArrayList<String> words, ArrayList<String> mots, Alignment align) {
-        this.words = words;
-        this.mots = mots;
+    public AlignedSent(S source, T target, Alignment align) {
+        this.source = source;
+        this.target = target;
         this.align = align;
     }
 
-    public ArrayList<String> getWords() {
-        return words;
+    public List<String> getSourceWords() {
+        return this.source.getWords();
     }
 
-    public ArrayList<String> getMots() {
-        return mots;
+    public List<String> getTargetWords() {
+        return this.target.getWords();
     }
 
     public Alignment getAlign() {
-        return align;
+        return this.align;
     }
 
 }

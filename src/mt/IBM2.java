@@ -1,5 +1,6 @@
 package mt;
 
+import language.LanguageExpression;
 import structures.Pair;
 import structures.ParallelCorpus;
 
@@ -33,7 +34,7 @@ import java.util.HashSet;
  *
  * Created by Sidd Karamcheti on 3/8/16.
  */
-public class IBM2 extends IBMModel {
+public class IBM2<S extends LanguageExpression,T extends LanguageExpression> extends IBMModel<S,T> implements MachineTranslator<S,T>{
     /**
      * Instantiate an IBM Model 2 instance with a given Parallel Corpus, and a set number
      * of EM iterations.
@@ -41,7 +42,7 @@ public class IBM2 extends IBMModel {
      * @param corpus Weakly aligned parallel corpus.
      * @param em_iterations Number of EM iterations for training.
      */
-    public IBM2(ParallelCorpus corpus, int em_iterations) {
+    public IBM2(ParallelCorpus<S,T> corpus, int em_iterations) {
         super(corpus);
 
         // Initialize tau translation probabilities by running a few iterations of Model 1 training
@@ -60,5 +61,15 @@ public class IBM2 extends IBMModel {
     public void setUniformProbabilities() {
         // a(i | j, l, m) = 1 / (l + 1) for all i, j, l, m
         HashSet<Pair<Integer, Integer>> lmCombinations = new HashSet<>();
+    }
+
+    /**
+     * Translate a single expression of this IBM model's source language into an expression of the target language
+     * @param sourceExpression A language expression in the model's source language
+     * @return A language expression in the model's target language
+     */
+    @Override
+    public T translate(S sourceExpression) {
+        return null;
     }
 }

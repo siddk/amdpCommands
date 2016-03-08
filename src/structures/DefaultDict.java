@@ -1,6 +1,7 @@
 package structures;
 
 import java.util.HashMap;
+import java.util.function.Function;
 
 /**
  * Default Dictionary Data Structure - loosely based on Python's defaultdict object.
@@ -8,8 +9,10 @@ import java.util.HashMap;
  * Created by Sidd Karamcheti on 3/7/16.
  */
 public class DefaultDict<K, V> extends HashMap<K, V> {
-    V defaultValue;
-    Class<V> defaultClass;
+    protected final V defaultValue;
+    protected final Class<V> defaultClass;
+    protected final Function<K,V> defaultFunction;
+
 
     /**
      * Instantiate a DefaultDict with a given Value.
@@ -19,6 +22,7 @@ public class DefaultDict<K, V> extends HashMap<K, V> {
     public DefaultDict(V defaultValue) {
         this.defaultValue = defaultValue;
         this.defaultClass = null;
+        this.defaultFunction = null;
     }
 
     /**
@@ -28,6 +32,18 @@ public class DefaultDict<K, V> extends HashMap<K, V> {
      */
     public DefaultDict(Class<V> defaultClass) {
         this.defaultClass = defaultClass;
+        this.defaultValue = null;
+        this.defaultFunction = null;
+    }
+
+    /**
+     * Instantiate a DefaultDict with a given Function.
+     *
+     * @param defaultFunction Default Function to populate DefaultDict with.
+     */
+    public DefaultDict(Function<K,V> defaultFunction) {
+        this.defaultFunction = defaultFunction;
+        this.defaultClass = null;
         this.defaultValue = null;
     }
 
@@ -42,6 +58,9 @@ public class DefaultDict<K, V> extends HashMap<K, V> {
         if (returnValue == null) {
             if (this.defaultValue != null) {
                 returnValue = this.defaultValue;
+            }
+            else if(this.defaultFunction != null){
+                returnValue = this.defaultFunction.apply((K)  key);
             }
             else {
                 try {

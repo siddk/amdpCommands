@@ -1,5 +1,6 @@
 package mt;
 
+import language.LanguageExpression;
 import structures.AlignedSent;
 import structures.Counts;
 import structures.DefaultDict;
@@ -29,7 +30,7 @@ import java.util.ArrayList;
  *
  * Created by Sidd Karamcheti on 3/7/16.
  */
-public class IBM1 extends IBMModel {
+public class IBM1<S extends LanguageExpression,T extends LanguageExpression> extends IBMModel<S,T> implements MachineTranslator<S,T>{
     /**
      * Instantiate an IBM Model 1 instance with a given Parallel Corpus, and a set number
      * of EM iterations.
@@ -96,5 +97,15 @@ public class IBM1 extends IBMModel {
                 this.tau.get(t).put(s, Math.max(estimate, MIN_PROB));
             }
         }
+    }
+
+    /**
+     * Translate a single expression of this IBM model's source language into an expression of the target language
+     * @param sourceExpression A language expression in the model's source language
+     * @return A language expression in the model's target language
+     */
+    @Override
+    public T translate(S sourceExpression) {
+        return null;
     }
 }
