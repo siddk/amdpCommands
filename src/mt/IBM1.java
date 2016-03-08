@@ -54,7 +54,7 @@ public class IBM1 extends IBMModel {
 
         for (String t : this.targetVocabulary) {
             // Set each tau value to the initial Probability
-            this.tau.put(t, new DefaultDict<String, Double>(initialProb));
+            this.tau.put(t, new DefaultDict<>(initialProb));
         }
     }
 
