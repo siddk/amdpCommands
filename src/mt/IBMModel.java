@@ -1,8 +1,8 @@
 package mt;
 
 import language.LanguageExpression;
-import structures.ParallelCorpus;
 import structures.DefaultDict;
+import structures.ParallelCorpus;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -20,18 +20,18 @@ import java.util.Set;
 public abstract class IBMModel<S extends LanguageExpression,T extends LanguageExpression> {
     /* tau[str][str]: double ==> Probability(target word | source word)
      * Indexed as tau.get(target_word).get(source_word) */
-    DefaultDict<String, DefaultDict<String, Double>> tau;
+    protected DefaultDict<String, DefaultDict<String, Double>> tau;
 
     /* delta[int][int][int][int]: double ==> Probability(i | j, l, m)
      * Indexed as delta.get(i).get(j).get(l).get(m) */
-    DefaultDict<Integer,
+    protected DefaultDict<Integer,
             DefaultDict<Integer, DefaultDict<Integer, DefaultDict<Integer, Double>>>> delta;
 
-    ParallelCorpus<S,T> corpus;
-    Set<String> sourceVocabulary;
-    Set<String> targetVocabulary;
-    static final String NULL = "**N**";
-    static final double MIN_PROB = 1.0e-12;
+    protected final ParallelCorpus corpus;
+    protected final Set<String> sourceVocabulary;
+    protected final Set<String> targetVocabulary;
+    protected static final String NULL = "**N**";
+    protected static final double MIN_PROB = 1.0e-12;
 
     /**
      * Instantiate an IBMModel object with the specified parallel corpus.
@@ -40,8 +40,11 @@ public abstract class IBMModel<S extends LanguageExpression,T extends LanguageEx
      */
     public IBMModel(ParallelCorpus corpus) {
         this.corpus = corpus;
+        this.tau = new DefaultDict<>(new DefaultDict<>(MIN_PROB));
+        this.delta = new DefaultDict<>(new DefaultDict<>(new DefaultDict<>(new DefaultDict<>(MIN_PROB))));
+        this.sourceVocabulary = new HashSet<>();
+        this.targetVocabulary = new HashSet<>();
         this.updateVocabulary(corpus);
-        this.initProbabilities();
     }
 
     /**
@@ -51,16 +54,10 @@ public abstract class IBMModel<S extends LanguageExpression,T extends LanguageEx
      * @param corpus Parallel corpus object consisting of weakly aligned source-target pairs.
      */
     public void updateVocabulary(ParallelCorpus corpus) {
-        // TODO - Update sourceVocabulary, targetVocabulary
+        corpus.getSentences().stream().forEach(alignedSent -> {
+            this.sourceVocabulary.addAll(alignedSent.getSourceWords());
+            this.targetVocabulary.addAll(alignedSent.getTargetWords());
+        });
     }
-
-    /**
-     * Initialize tables of parameters. For IBM Model 2, these are the translation and the
-     * alignment parameters.
-     */
-    public void initProbabilities() {
-        // TODO - Initialize tau, delta maps properly! Default values should be MIN_PROB
-    }
-
 
 }

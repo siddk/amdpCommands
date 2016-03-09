@@ -10,9 +10,9 @@ import java.util.List;
  *
  * Created by Sidd Karamcheti on 3/7/16.
  */
-public class AlignedSent<S extends LanguageExpression,T extends LanguageExpression> {
-    protected final S source;
-    protected final T target;
+public class AlignedSent{
+    protected final LanguageExpression source;
+    protected final LanguageExpression target;
     protected final Alignment align;
 
     /**
@@ -21,7 +21,7 @@ public class AlignedSent<S extends LanguageExpression,T extends LanguageExpressi
      * @param source Expression of the source language
      * @param target Expression of the target language
      */
-    public AlignedSent(S source, T target) {
+    public AlignedSent(LanguageExpression source, LanguageExpression target) {
         this.source = source;
         this.target = target;
         this.align = new Alignment();
@@ -34,7 +34,7 @@ public class AlignedSent<S extends LanguageExpression,T extends LanguageExpressi
      * @param target Expression of the target language
      * @param align Predefined alignment.
      */
-    public AlignedSent(S source, T target, Alignment align) {
+    public AlignedSent(LanguageExpression source, LanguageExpression target, Alignment align) {
         this.source = source;
         this.target = target;
         this.align = align;

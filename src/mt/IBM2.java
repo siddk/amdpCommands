@@ -42,7 +42,7 @@ public class IBM2<S extends LanguageExpression,T extends LanguageExpression> ext
      * @param corpus Weakly aligned parallel corpus.
      * @param em_iterations Number of EM iterations for training.
      */
-    public IBM2(ParallelCorpus<S,T> corpus, int em_iterations) {
+    public IBM2(ParallelCorpus corpus, int em_iterations) {
         super(corpus);
 
         // Initialize tau translation probabilities by running a few iterations of Model 1 training
