@@ -1,6 +1,5 @@
 package mt;
 
-import language.LanguageExpression;
 import structures.DefaultDict;
 import structures.ParallelCorpus;
 
@@ -17,7 +16,7 @@ import java.util.Set;
  *
  * Created by Sidd Karamcheti on 3/7/16.
  */
-public abstract class IBMModel<S extends LanguageExpression,T extends LanguageExpression> {
+public abstract class IBMModel {
     /* tau[str][str]: double ==> Probability(target word | source word)
      * Indexed as tau.get(target_word).get(source_word) */
     protected DefaultDict<String, DefaultDict<String, Double>> tau;

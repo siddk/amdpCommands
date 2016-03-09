@@ -30,7 +30,7 @@ import java.util.List;
  *
  * Created by Sidd Karamcheti on 3/7/16.
  */
-public class IBM1<S extends LanguageExpression,T extends LanguageExpression> extends IBMModel<S,T> implements MachineTranslator<S,T>{
+public class IBM1<S extends LanguageExpression,T extends LanguageExpression> extends IBMModel implements MachineTranslator<S,T>{
     /**
      * Instantiate an IBM Model 1 instance with a given Parallel Corpus, and a set number
      * of EM iterations.
@@ -53,10 +53,8 @@ public class IBM1<S extends LanguageExpression,T extends LanguageExpression> ext
     public void setUniformProbabilities() {
         double initialProb = 1.0 / this.targetVocabulary.size();
 
-        for (String t : this.targetVocabulary) {
-            // Set each tau value to the initial Probability
-            this.tau.put(t, new DefaultDict<>(initialProb));
-        }
+        // Set each tau value to the initial Probability
+        this.targetVocabulary.stream().forEach(t -> this.tau.put(t, new DefaultDict<>(initialProb)));
     }
 
     /**

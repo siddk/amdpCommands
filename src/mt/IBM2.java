@@ -34,7 +34,7 @@ import java.util.List;
  *
  * Created by Sidd Karamcheti on 3/8/16.
  */
-public class IBM2<S extends LanguageExpression,T extends LanguageExpression> extends IBMModel<S,T> implements MachineTranslator<S,T>{
+public class IBM2<S extends LanguageExpression,T extends LanguageExpression> extends IBMModel implements MachineTranslator<S,T>{
     /**
      * Instantiate an IBM Model 2 instance with a given Parallel Corpus, and a set number
      * of EM iterations.
