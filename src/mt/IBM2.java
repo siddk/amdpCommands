@@ -34,7 +34,7 @@ import java.util.List;
  *
  * Created by Sidd Karamcheti on 3/8/16.
  */
-public class IBM2<S extends LanguageExpression,T extends LanguageExpression> extends IBMModel implements MachineTranslator<S,T>{
+public class IBM2<S extends LanguageExpression,T extends LanguageExpression> extends IBMModel<S,T> implements MachineTranslator<S,T>{
     /**
      * Instantiate an IBM Model 2 instance with a given Parallel Corpus, and a set number
      * of EM iterations.
@@ -42,11 +42,11 @@ public class IBM2<S extends LanguageExpression,T extends LanguageExpression> ext
      * @param corpus Weakly aligned parallel corpus.
      * @param em_iterations Number of EM iterations for training.
      */
-    public IBM2(ParallelCorpus corpus, int em_iterations) {
-        super(corpus);
+    public IBM2(ParallelCorpus corpus, Class<S> source, Class<T> target, int em_iterations) {
+        super(corpus,source,target);
 
         // Initialize tau translation probabilities by running a few iterations of Model 1 training
-        IBM1 ibm1 = new IBM1(corpus, em_iterations);
+        IBM1 ibm1 = new IBM1(corpus, source, target, em_iterations);
         this.tau = ibm1.tau;
 
         // Initialize all delta probabilities

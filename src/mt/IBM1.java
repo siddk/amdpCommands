@@ -6,6 +6,8 @@ import structures.Counts;
 import structures.DefaultDict;
 import structures.ParallelCorpus;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,7 +32,7 @@ import java.util.List;
  *
  * Created by Sidd Karamcheti on 3/7/16.
  */
-public class IBM1<S extends LanguageExpression,T extends LanguageExpression> extends IBMModel implements MachineTranslator<S,T>{
+public class IBM1<S extends LanguageExpression,T extends LanguageExpression> extends IBMModel<S,T> implements MachineTranslator<S,T>{
     /**
      * Instantiate an IBM Model 1 instance with a given Parallel Corpus, and a set number
      * of EM iterations.
@@ -38,8 +40,8 @@ public class IBM1<S extends LanguageExpression,T extends LanguageExpression> ext
      * @param corpus Weakly aligned parallel corpus.
      * @param em_iterations Number of EM Iterations for training.
      */
-    public IBM1(ParallelCorpus corpus, int em_iterations) {
-        super(corpus);
+    public IBM1(ParallelCorpus corpus, Class<S> source, Class<T> target, int em_iterations) {
+        super(corpus,source,target);
         this.setUniformProbabilities();
 
         for (int i = 0; i < em_iterations; i++) {
@@ -104,6 +106,22 @@ public class IBM1<S extends LanguageExpression,T extends LanguageExpression> ext
      */
     @Override
     public T translate(S sourceExpression) {
+        try {
+            List<String> translated = new ArrayList<>();
+            for(String sourceWord : sourceExpression.getWords()){
+
+            }
+            return this.target.getConstructor(List.class).newInstance(translated);
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+
         return null;
     }
 }
