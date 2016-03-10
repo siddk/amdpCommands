@@ -46,7 +46,7 @@ public class IBM2<S extends LanguageExpression,T extends LanguageExpression> ext
         super(corpus,source,target);
 
         // Initialize tau translation probabilities by running a few iterations of Model 1 training
-        IBM1 ibm1 = new IBM1(corpus, source, target, em_iterations);
+        IBM1<S,T> ibm1 = new IBM1<>(corpus, source, target, em_iterations);
         this.tau = ibm1.tau;
 
         // Initialize all delta probabilities
