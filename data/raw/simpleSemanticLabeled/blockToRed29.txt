@@ -1,0 +1,2 @@
+isRed blockInRoom
+move the block to the red place

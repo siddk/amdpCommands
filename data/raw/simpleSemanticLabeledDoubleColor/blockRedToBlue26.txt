@@ -1,0 +1,2 @@
+isRed isBlue blockInRoom
+take the box in the rose location to the navy location

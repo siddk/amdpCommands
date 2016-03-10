@@ -1,0 +1,2 @@
+isBlue agentInRoom
+leave for the navy location

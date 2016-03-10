@@ -1,0 +1,2 @@
+isRed agentInRoom
+go to the red location

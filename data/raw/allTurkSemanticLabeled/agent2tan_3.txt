@@ -1,0 +1,2 @@
+agentInRoom agent room isTan room
+walk through door in longer side of room , possibly to your left , and stand in tan room .

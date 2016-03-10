@@ -1,0 +1,2 @@
+blockInRoom block room isOrange room blockInRoom block room isTan room agentInRoom agent room isTeal room
+start from blue retangle and transfer to beige one . while doing this , drag star to ornge box ; while you're still in beige retangle .

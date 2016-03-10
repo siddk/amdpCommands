@@ -1,0 +1,2 @@
+isRed isBlue blockInRoom
+pull the piece in the red room to the blue location

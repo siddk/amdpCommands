@@ -1,0 +1,2 @@
+blockInRoom block room isOrange room blockInRoom block room isTan room
+go thru left door into tan room and push star into orange room

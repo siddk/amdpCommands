@@ -1,0 +1,2 @@
+isRed blockInRoom
+pull the block to the crimson area

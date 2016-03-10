@@ -1,0 +1,2 @@
+blockInRoom block room isTeal room blockInRoom block room isTan room agentInRoom agent room isOrange room
+go from orange to cream towards star diagonally north - west direction and push star downwards south till blue

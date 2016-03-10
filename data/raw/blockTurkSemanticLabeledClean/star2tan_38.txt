@@ -1,0 +1,2 @@
+blockInRoom block room isTan room blockInRoom block room isTeal room
+pick star inside blue room and bring it directly to beige room

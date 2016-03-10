@@ -1,0 +1,2 @@
+blockInRoom block room isTeal room
+go to top right room , and push star down to cyan room .

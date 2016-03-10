@@ -1,0 +1,2 @@
+isRed blockInRoom
+push the star to the rose room

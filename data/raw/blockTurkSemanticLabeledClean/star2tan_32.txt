@@ -1,0 +1,2 @@
+blockInRoom block room isTan room blockInRoom block room isTeal room agentInRoom agent room isOrange room
+move from tangerine space to teal space , n push star into beige space .

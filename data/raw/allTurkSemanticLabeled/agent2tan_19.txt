@@ -1,0 +1,2 @@
+agentInRoom agent room isTan room agentInRoom agent room isOrange room
+start at orange and go to beige .

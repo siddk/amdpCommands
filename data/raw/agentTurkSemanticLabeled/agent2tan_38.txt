@@ -1,0 +1,2 @@
+agentInRoom agent room isTan room agentInRoom agent room isOrange room
+go from orange room to skin coloured room

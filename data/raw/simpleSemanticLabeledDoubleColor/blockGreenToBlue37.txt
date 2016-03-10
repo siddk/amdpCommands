@@ -1,0 +1,2 @@
+isGreen isBlue blockInRoom
+take the star in the jade place to the cobalt room

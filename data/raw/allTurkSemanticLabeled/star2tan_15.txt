@@ -1,0 +1,2 @@
+blockInRoom block room isTan room
+go get star and bring it to peach colored section .

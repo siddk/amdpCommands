@@ -1,0 +1,2 @@
+agentInRoom agent room isTeal room
+please walk through doorway into bluegreen room .

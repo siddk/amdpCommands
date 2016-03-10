@@ -1,0 +1,2 @@
+isBlue isGreen blockInRoom
+move the block in the navy location to the olive place

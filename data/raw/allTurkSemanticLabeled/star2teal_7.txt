@@ -1,0 +1,2 @@
+blockInRoom block room isTeal room blockInRoom block room isTan room agentInRoom agent room isOrange room
+go from orange room to cream room . go up to star . push it into green room , but do not actually enter green room . stop at doorway .

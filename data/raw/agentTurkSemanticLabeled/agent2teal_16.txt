@@ -1,0 +1,2 @@
+agentInRoom agent room isTeal room
+go through door on south wall .

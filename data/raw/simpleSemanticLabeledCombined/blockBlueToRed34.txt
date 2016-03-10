@@ -1,0 +1,2 @@
+isBlue isRed blockInRoom
+move the box in the cobalt area to the rose location

@@ -1,0 +1,2 @@
+blockInRoom block room isTan room blockInRoom block room isTeal room agentInRoom agent room isOrange room
+leave orange room and enter turquoise one . grab star and stand in doorway of turquoise and cream colored rooms while still holding star .

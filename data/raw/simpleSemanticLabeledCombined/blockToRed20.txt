@@ -1,0 +1,2 @@
+isRed blockInRoom
+take the box to the cherry place

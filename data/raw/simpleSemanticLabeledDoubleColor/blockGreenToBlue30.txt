@@ -1,0 +1,2 @@
+isGreen isBlue blockInRoom
+push the star in the jade location to the navy location

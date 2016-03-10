@@ -1,0 +1,2 @@
+agentInRoom agent room isOrange room agentInRoom agent room isTeal room
+start on turquoise rectangle and n walk up to orangey rectangle .

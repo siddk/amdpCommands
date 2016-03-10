@@ -1,0 +1,2 @@
+isGreen isRed blockInRoom
+pull the box in the green location to the cherry room

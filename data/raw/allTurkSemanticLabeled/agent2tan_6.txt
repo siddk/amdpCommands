@@ -1,0 +1,2 @@
+agentInRoom agent room isTan room agentInRoom agent room isOrange room
+walk on orange n beige tile to your left .

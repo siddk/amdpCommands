@@ -1,0 +1,2 @@
+isBlue isGreen blockInRoom
+pull the star in the sapphire area to the jade area

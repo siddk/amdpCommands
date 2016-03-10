@@ -1,0 +1,2 @@
+isRed blockInRoom
+pull the piece to the cherry area

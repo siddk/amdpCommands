@@ -1,0 +1,2 @@
+isBlue isGreen blockInRoom
+move the block in the blue area to the jade place

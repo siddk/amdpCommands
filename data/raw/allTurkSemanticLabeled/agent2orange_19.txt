@@ -1,0 +1,2 @@
+agentInRoom agent room isOrange room agentInRoom agent room isTeal room
+move from blue to orange , without going into tan .

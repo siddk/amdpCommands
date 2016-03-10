@@ -1,0 +1,2 @@
+isGreen isBlue blockInRoom
+pull the star in the emerald area to the blue area

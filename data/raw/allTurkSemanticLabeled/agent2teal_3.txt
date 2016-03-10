@@ -1,0 +1,2 @@
+agentInRoom agent room isTeal room agentInRoom agent room isTan room
+go diagonally towards south-east from cream to blue

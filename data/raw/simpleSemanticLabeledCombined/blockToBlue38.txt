@@ -1,0 +1,2 @@
+isBlue blockInRoom
+pull the block to the navy place

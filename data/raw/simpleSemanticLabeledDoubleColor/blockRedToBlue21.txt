@@ -1,0 +1,2 @@
+isRed isBlue blockInRoom
+pull the box in the red place to the cobalt room

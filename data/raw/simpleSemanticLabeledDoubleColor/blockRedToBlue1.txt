@@ -1,0 +1,2 @@
+isRed isBlue blockInRoom
+pull the star in the crimson area to the sapphire place

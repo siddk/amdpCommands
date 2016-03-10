@@ -1,0 +1,2 @@
+blockInRoom block room isTeal room blockInRoom block room isTan room agentInRoom agent room isOrange room
+leave orange room and go into beige room . push star into teal room without crossing doorway into room .

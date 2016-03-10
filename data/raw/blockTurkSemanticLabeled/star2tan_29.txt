@@ -1,0 +1,2 @@
+blockInRoom block room isTan room blockInRoom block room isTeal room
+leave room you're in , go to green room , get star , and go to beige room with star

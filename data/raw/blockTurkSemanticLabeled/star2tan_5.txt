@@ -1,0 +1,2 @@
+blockInRoom block room isTan room blockInRoom block room isTeal room agentInRoom agent room isOrange room
+from orange , move south into green room . position yourself to bottom left of yellow star to grab it , n move north into doorway of tan room .

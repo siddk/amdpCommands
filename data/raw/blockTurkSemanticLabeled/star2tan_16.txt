@@ -1,0 +1,2 @@
+blockInRoom block room isTan room blockInRoom block room isTeal room
+go into blue room and pick up star n carry it into beige room .

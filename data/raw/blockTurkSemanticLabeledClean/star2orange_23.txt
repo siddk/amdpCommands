@@ -1,0 +1,2 @@
+blockInRoom block room isOrange room blockInRoom block room isTan room agentInRoom agent room isTeal room
+move on from blue color to white where way is , and n go along with star to reach orange .

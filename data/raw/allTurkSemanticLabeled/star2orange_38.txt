@@ -1,0 +1,2 @@
+blockInRoom block room isOrange room
+take doorway on your left . when you enter room re should be a big star . push star through doorway to your right . you do not have to completely enter that room .

@@ -1,0 +1,2 @@
+isGreen isRed blockInRoom
+pull the star in the emerald room to the rose place

@@ -1,0 +1,2 @@
+blockInRoom block room isTan room blockInRoom block room isTeal room
+go down to blue-green block , get star and take star to beige block above .

@@ -1,0 +1,2 @@
+isRed isBlue blockInRoom
+move the piece in the cherry room to the blue room

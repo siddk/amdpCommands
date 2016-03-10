@@ -1,0 +1,2 @@
+blockInRoom block room isOrange room blockInRoom block room isTan room agentInRoom agent room isTeal room
+from green-floored room , take star from cream-floored room to orange room , but do not enter orange room .

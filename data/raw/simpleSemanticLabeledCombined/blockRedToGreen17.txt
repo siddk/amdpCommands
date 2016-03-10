@@ -1,0 +1,2 @@
+isRed isGreen blockInRoom
+push the box in the rose room to the emerald area

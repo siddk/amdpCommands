@@ -1,0 +1,2 @@
+isBlue isGreen blockInRoom
+push the box in the cobalt room to the olive place

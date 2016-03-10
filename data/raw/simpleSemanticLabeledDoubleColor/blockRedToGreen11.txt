@@ -1,0 +1,2 @@
+isRed isGreen blockInRoom
+push the box in the cherry place to the jade area

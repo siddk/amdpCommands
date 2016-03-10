@@ -1,0 +1,2 @@
+isRed isGreen blockInRoom
+take the box in the crimson place to the olive area

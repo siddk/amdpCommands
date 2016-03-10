@@ -1,0 +1,2 @@
+isBlue blockInRoom
+move the block to the cobalt place

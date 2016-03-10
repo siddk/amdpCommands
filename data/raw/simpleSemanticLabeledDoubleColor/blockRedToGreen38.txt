@@ -1,0 +1,2 @@
+isRed isGreen blockInRoom
+take the star in the rose area to the emerald location

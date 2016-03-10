@@ -1,0 +1,2 @@
+agentInRoom agent room isTan room
+move straight to white color

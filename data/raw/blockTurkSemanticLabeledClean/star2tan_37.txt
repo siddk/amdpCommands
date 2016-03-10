@@ -1,0 +1,2 @@
+blockInRoom block room isTan room
+move to star and n bump it into tan colored area .

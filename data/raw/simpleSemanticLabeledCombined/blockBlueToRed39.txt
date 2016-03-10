@@ -1,0 +1,2 @@
+isBlue isRed blockInRoom
+move the star in the cobalt location to the red place

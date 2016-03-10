@@ -1,0 +1,2 @@
+isGreen isRed blockInRoom
+push the box in the green room to the red room

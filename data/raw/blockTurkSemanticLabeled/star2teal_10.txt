@@ -1,0 +1,2 @@
+blockInRoom block room isTeal room blockInRoom block room isTan room agentInRoom agent room isOrange room
+go from orange spot to beige spot push star in to green spot but do not enter green spot stay in beige spot

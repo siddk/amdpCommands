@@ -1,0 +1,2 @@
+blockInRoom block room isOrange room blockInRoom block room isTan room
+go forward and left into beige room , take star and put it in orange room while remaining in beige room .

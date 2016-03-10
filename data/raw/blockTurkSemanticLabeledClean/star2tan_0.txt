@@ -1,0 +1,2 @@
+blockInRoom block room isTan room
+bring star to beige room

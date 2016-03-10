@@ -1,0 +1,2 @@
+isRed isBlue blockInRoom
+push the piece in the cherry location to the sapphire room

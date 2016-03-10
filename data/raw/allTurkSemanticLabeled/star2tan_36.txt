@@ -1,0 +1,2 @@
+blockInRoom block room isTan room
+move through rooms clockwise , push star through door into tan room .

@@ -1,0 +1,2 @@
+blockInRoom block room isTeal room blockInRoom block room isTan room
+move into white room . get star and take it into blue room .

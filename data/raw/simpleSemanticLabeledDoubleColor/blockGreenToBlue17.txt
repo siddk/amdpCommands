@@ -1,0 +1,2 @@
+isGreen isBlue blockInRoom
+push the star in the emerald place to the blue place

@@ -1,0 +1,2 @@
+isRed isBlue blockInRoom
+pull the block in the crimson location to the cobalt location

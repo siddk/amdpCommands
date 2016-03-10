@@ -1,0 +1,2 @@
+agentInRoom agent room isTan room agentInRoom agent room isOrange room
+please walk to white background area to left , from orange background area you are presently staying at .

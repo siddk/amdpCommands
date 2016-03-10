@@ -1,0 +1,2 @@
+blockInRoom block room isTeal room agentInRoom agent room isOrange room
+move from orange to above star , n push it down into green .

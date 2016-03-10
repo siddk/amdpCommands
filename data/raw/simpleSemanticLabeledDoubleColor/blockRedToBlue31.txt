@@ -1,0 +1,2 @@
+isRed isBlue blockInRoom
+push the block in the crimson location to the sapphire area

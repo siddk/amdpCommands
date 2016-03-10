@@ -1,0 +1,2 @@
+blockInRoom block room isTan room blockInRoom block room isTeal room
+enter green room , pick up star and go to doorway to tan room .

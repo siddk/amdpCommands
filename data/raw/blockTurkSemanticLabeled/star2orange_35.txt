@@ -1,0 +1,2 @@
+blockInRoom block room isOrange room blockInRoom block room isTan room agentInRoom agent room isTeal room
+start on right hand side of blue square and move up and to left in a diagonal direction , into beige square . next , go to right , pushing star until it passes into red square and n stop while still in beige one .

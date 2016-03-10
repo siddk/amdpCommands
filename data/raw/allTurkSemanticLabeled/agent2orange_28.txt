@@ -1,0 +1,2 @@
+agentInRoom agent room isOrange room agentInRoom agent room isTeal room
+proceed from blue room directly to orange room , and don't forget to smile !

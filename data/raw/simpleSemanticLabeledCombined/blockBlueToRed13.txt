@@ -1,0 +1,2 @@
+isBlue isRed blockInRoom
+move the block in the sapphire place to the rose room

@@ -1,0 +1,2 @@
+blockInRoom block room isTan room blockInRoom block room isTeal room
+go straight , enter green room , turn right , pick up star , and push it into yellow room .

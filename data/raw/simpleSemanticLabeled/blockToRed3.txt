@@ -1,0 +1,2 @@
+isRed blockInRoom
+take the star to the red place

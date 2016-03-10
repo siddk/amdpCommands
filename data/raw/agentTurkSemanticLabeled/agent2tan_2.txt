@@ -1,0 +1,2 @@
+agentInRoom agent room isTan room agentInRoom agent room isOrange room
+you would start in bottom left of orange room . you would n walk slightly into tan room . you would not go into green room .

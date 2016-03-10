@@ -1,0 +1,2 @@
+blockInRoom block room isTeal room blockInRoom block room isTan room agentInRoom agent room isOrange room
+go from orange room to skin coloured room and n push star to teal room whilst still in skin coloured room

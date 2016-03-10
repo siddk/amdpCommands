@@ -1,0 +1,2 @@
+agentInRoom agent room isTan room
+re is a doorway to left of you and below you . take doorway to left . floor should be a pale peach color .

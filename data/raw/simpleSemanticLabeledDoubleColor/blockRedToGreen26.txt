@@ -1,0 +1,2 @@
+isRed isGreen blockInRoom
+pull the piece in the crimson location to the olive place

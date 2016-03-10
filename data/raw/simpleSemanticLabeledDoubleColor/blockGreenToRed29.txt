@@ -1,0 +1,2 @@
+isGreen isRed blockInRoom
+move the block in the emerald place to the cherry location

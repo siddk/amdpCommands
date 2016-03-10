@@ -1,0 +1,2 @@
+isBlue isRed blockInRoom
+push the star in the navy place to the cherry place

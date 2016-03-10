@@ -1,0 +1,2 @@
+isBlue isGreen blockInRoom
+take the piece in the cobalt place to the green location

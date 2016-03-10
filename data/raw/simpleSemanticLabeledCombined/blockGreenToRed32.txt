@@ -1,0 +1,2 @@
+isGreen isRed blockInRoom
+take the block in the emerald room to the crimson place

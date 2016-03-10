@@ -1,0 +1,2 @@
+blockInRoom block room isOrange room blockInRoom block room isTan room agentInRoom agent room isTeal room
+go up from green room through entry to tan room and approach star . push star right through entry to orange room

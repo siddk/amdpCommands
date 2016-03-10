@@ -1,0 +1,2 @@
+blockInRoom block room isOrange room
+go through left opening and get star , push to right through opening , but stop . do not enter .

@@ -1,0 +1,2 @@
+isBlue isRed blockInRoom
+take the box in the cobalt room to the rose area

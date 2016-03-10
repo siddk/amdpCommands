@@ -1,0 +1,2 @@
+blockInRoom block room isOrange room blockInRoom block room isTan room
+go through center opening into beige enclosure and get behind star and push it into opening of orange enclosure

@@ -1,0 +1,2 @@
+isGreen isRed blockInRoom
+push the box in the olive room to the rose location

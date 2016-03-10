@@ -1,0 +1,2 @@
+blockInRoom block room isTan room blockInRoom block room isTeal room agentInRoom agent room isOrange room
+go from orange room , n to green room , n pick up star , and bring it to tan room

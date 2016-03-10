@@ -1,0 +1,2 @@
+isGreen isBlue blockInRoom
+pull the block in the green area to the blue place

@@ -1,0 +1,2 @@
+agentInRoom agent room isTeal room agentInRoom agent room isTan room
+start in tan room and n go through door into blue room .

@@ -1,0 +1,2 @@
+isGreen blockInRoom
+move the block to the emerald room

@@ -1,0 +1,2 @@
+isGreen isRed blockInRoom
+pull the piece in the jade location to the rose place

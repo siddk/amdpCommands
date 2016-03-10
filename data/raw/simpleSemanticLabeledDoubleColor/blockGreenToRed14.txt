@@ -1,0 +1,2 @@
+isGreen isRed blockInRoom
+take the piece in the olive location to the rose place

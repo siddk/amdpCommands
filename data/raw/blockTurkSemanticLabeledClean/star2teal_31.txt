@@ -1,0 +1,2 @@
+blockInRoom block room isTeal room blockInRoom block room isTan room
+push star from olive room to green room

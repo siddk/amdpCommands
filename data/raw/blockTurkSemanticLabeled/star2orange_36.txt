@@ -1,0 +1,2 @@
+blockInRoom block room isOrange room blockInRoom block room isTan room agentInRoom agent room isTeal room
+start with blue .... go to left to beige .... put star in front of you .... move him to orange .... dont cross over to orange ..... just star

@@ -1,0 +1,2 @@
+blockInRoom block room isTan room blockInRoom block room isTeal room agentInRoom agent room isOrange room
+exit red room into blue room . turn right . go forward and pick up star . take star out into yellow room .

@@ -1,0 +1,2 @@
+isGreen isRed blockInRoom
+pull the box in the jade location to the crimson area

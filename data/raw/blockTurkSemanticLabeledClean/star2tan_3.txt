@@ -1,0 +1,2 @@
+blockInRoom block room isTan room blockInRoom block room isTeal room agentInRoom agent room isOrange room
+exit orange colored room and enter teal room . pick up star and carry it to doorway of white room .

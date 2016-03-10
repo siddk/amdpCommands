@@ -1,0 +1,2 @@
+agentInRoom agent room isTeal room agentInRoom agent room isTan room
+go from flesh colored room down to cyan room . do not cut through orange room .

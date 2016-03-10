@@ -1,0 +1,2 @@
+isGreen blockInRoom
+pull the piece to the olive location

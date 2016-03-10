@@ -1,0 +1,2 @@
+agentInRoom agent room isTan room agentInRoom agent room isOrange room
+walk from orange square to beige square by walking a straight line to left .

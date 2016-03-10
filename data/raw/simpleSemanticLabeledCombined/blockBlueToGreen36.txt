@@ -1,0 +1,2 @@
+isBlue isGreen blockInRoom
+pull the box in the sapphire location to the emerald place

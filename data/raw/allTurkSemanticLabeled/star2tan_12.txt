@@ -1,0 +1,2 @@
+blockInRoom block room isTan room blockInRoom block room isTeal room agentInRoom agent room isOrange room
+go from orange room to green room , pick up gold star , and walk it into beige room .

@@ -1,0 +1,2 @@
+agentInRoom agent room isTeal room
+go forward and to left into blue room

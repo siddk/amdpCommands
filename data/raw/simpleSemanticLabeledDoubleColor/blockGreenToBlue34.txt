@@ -1,0 +1,2 @@
+isGreen isBlue blockInRoom
+push the piece in the jade place to the cobalt place

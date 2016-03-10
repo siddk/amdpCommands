@@ -1,0 +1,2 @@
+isRed isBlue blockInRoom
+push the box in the crimson room to the cobalt area

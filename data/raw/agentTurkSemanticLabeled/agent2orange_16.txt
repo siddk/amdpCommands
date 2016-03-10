@@ -1,0 +1,2 @@
+agentInRoom agent room isOrange room
+go through second door on left .

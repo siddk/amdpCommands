@@ -1,0 +1,2 @@
+blockInRoom block room isTeal room
+go out exit to your left and push star straight out of exit to dark blue room .

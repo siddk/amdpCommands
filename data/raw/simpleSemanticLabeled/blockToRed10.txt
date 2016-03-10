@@ -1,0 +1,2 @@
+isRed blockInRoom
+push the piece to the red place

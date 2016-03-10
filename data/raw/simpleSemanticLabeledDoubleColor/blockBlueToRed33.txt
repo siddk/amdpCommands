@@ -1,0 +1,2 @@
+isBlue isRed blockInRoom
+pull the piece in the blue area to the crimson area

@@ -1,0 +1,2 @@
+blockInRoom block room isOrange room blockInRoom block room isTan room
+go through far left door into white room . get star and move it through door into red room .

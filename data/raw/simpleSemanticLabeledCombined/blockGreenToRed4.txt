@@ -1,0 +1,2 @@
+isGreen isRed blockInRoom
+move the piece in the olive room to the crimson room

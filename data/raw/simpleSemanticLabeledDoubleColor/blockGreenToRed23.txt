@@ -1,0 +1,2 @@
+isGreen isRed blockInRoom
+take the piece in the jade area to the cherry place

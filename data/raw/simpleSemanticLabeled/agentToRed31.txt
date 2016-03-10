@@ -1,0 +1,2 @@
+isRed agentInRoom
+leave for the red room

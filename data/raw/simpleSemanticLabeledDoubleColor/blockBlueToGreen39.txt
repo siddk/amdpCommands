@@ -1,0 +1,2 @@
+isBlue isGreen blockInRoom
+push the star in the sapphire location to the olive location

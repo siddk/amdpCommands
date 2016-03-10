@@ -1,0 +1,2 @@
+isBlue isRed blockInRoom
+pull the box in the navy place to the crimson place

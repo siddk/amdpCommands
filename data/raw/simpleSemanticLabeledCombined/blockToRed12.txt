@@ -1,0 +1,2 @@
+isRed blockInRoom
+pull the box to the rose area

@@ -1,0 +1,2 @@
+agentInRoom agent room isTeal room agentInRoom agent room isTan room
+start in beige room . walk into greenish room . go just past doorway . don't go all way to middle of room . n stop .

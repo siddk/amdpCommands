@@ -1,0 +1,2 @@
+blockInRoom block room isTeal room blockInRoom block room isTan room
+go into beige room and push star into green room .

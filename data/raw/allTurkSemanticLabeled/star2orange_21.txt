@@ -1,0 +1,2 @@
+blockInRoom block room isOrange room blockInRoom block room isTan room agentInRoom agent room isTeal room
+move from blue room to tan room . move star into orange room without setting foot into orange room .

@@ -1,0 +1,2 @@
+isRed isBlue blockInRoom
+pull the piece in the rose room to the cobalt place

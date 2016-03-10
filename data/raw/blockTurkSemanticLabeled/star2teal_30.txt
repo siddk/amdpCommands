@@ -1,0 +1,2 @@
+blockInRoom block room isTeal room blockInRoom block room isTan room
+move star from beige room to blue room

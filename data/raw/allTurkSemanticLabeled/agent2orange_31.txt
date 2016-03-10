@@ -1,0 +1,2 @@
+agentInRoom agent room isOrange room agentInRoom agent room isTeal room
+start at right of blue rectangle , move diagonally towards right door , stand in threshold , n move through door into peach square and stand outside door

@@ -1,0 +1,2 @@
+isBlue blockInRoom
+push the box to the blue location

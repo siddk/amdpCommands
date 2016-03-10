@@ -1,0 +1,2 @@
+blockInRoom block room isTeal room
+shift to your right box and move star down to next box

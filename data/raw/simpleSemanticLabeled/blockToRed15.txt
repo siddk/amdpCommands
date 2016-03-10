@@ -1,0 +1,2 @@
+isRed blockInRoom
+take the block to the red room

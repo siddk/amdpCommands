@@ -1,0 +1,2 @@
+isGreen isBlue blockInRoom
+pull the piece in the emerald location to the blue room

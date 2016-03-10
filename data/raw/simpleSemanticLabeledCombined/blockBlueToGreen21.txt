@@ -1,0 +1,2 @@
+isBlue isGreen blockInRoom
+push the piece in the navy location to the green room

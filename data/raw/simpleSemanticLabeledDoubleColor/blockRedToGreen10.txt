@@ -1,0 +1,2 @@
+isRed isGreen blockInRoom
+move the piece in the rose place to the emerald room

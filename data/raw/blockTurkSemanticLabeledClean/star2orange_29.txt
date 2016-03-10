@@ -1,0 +1,2 @@
+blockInRoom block room isOrange room blockInRoom block room isTan room agentInRoom agent room isTeal room
+start around middle of green floored room . go towards doorway to beige floored room . push star directly into orange floored room , but do not enter .

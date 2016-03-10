@@ -1,0 +1,2 @@
+agentInRoom agent room isTeal room
+go through door straight ahead and enter room with green floor .

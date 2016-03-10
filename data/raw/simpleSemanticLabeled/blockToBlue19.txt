@@ -1,0 +1,2 @@
+isBlue blockInRoom
+push the block to the navy area

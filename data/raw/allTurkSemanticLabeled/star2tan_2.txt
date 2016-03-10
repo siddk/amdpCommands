@@ -1,0 +1,2 @@
+blockInRoom block room isTan room blockInRoom block room isTeal room
+exit door to left , enter room with teal floor , walk around room to star and take that star to or room with cream floor .

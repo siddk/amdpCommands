@@ -1,0 +1,2 @@
+isRed isBlue blockInRoom
+take the star in the red room to the cobalt location

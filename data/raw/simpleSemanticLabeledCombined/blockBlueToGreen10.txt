@@ -1,0 +1,2 @@
+isBlue isGreen blockInRoom
+take the block in the blue place to the olive room

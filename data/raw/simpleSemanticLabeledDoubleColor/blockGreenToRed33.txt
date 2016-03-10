@@ -1,0 +1,2 @@
+isGreen isRed blockInRoom
+take the block in the green location to the rose place

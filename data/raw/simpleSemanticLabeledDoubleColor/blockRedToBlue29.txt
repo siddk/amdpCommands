@@ -1,0 +1,2 @@
+isRed isBlue blockInRoom
+take the piece in the crimson place to the blue location

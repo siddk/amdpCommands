@@ -1,0 +1,2 @@
+agentInRoom agent room isTan room agentInRoom agent room isOrange room
+in orange rectangle facing door , walk straight until you are inside tan rectangle .

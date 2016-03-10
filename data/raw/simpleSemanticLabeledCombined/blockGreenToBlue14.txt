@@ -1,0 +1,2 @@
+isGreen isBlue blockInRoom
+move the box in the jade location to the navy area

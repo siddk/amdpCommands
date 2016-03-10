@@ -1,0 +1,2 @@
+blockInRoom block room isTeal room blockInRoom block room isTan room agentInRoom agent room isOrange room
+move happy in a straight line from red room on top right , through door , to beige room on top left , so that happy is positioned directly above star . use happy to push star downwards just until star crosses through door into red room on bottom .

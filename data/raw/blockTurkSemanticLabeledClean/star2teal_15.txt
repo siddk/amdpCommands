@@ -1,0 +1,2 @@
+blockInRoom block room isTeal room
+go through door , take star , and put it in blue room .

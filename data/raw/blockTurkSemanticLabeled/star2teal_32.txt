@@ -1,0 +1,2 @@
+blockInRoom block room isTeal room
+push star through door on left , n door directly below

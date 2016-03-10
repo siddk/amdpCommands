@@ -1,0 +1,2 @@
+isRed isBlue blockInRoom
+take the box in the red place to the sapphire room

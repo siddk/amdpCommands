@@ -1,0 +1,2 @@
+isGreen isBlue blockInRoom
+take the piece in the jade place to the cobalt area

@@ -1,0 +1,2 @@
+blockInRoom block room isTeal room blockInRoom block room isTan room agentInRoom agent room isOrange room
+starting in orange walk left and slightly up , into tan just above star and stop . push star straight down from tan into green and stop just as star passes through door .

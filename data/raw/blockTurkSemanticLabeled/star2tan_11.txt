@@ -1,0 +1,2 @@
+blockInRoom block room isTan room blockInRoom block room isTeal room agentInRoom agent room isOrange room
+go from orange room to blue room , pick up star , and move it into cream colored room .

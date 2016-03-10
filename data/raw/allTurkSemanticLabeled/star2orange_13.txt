@@ -1,0 +1,2 @@
+blockInRoom block room isOrange room
+go through left door and carry object into or room .

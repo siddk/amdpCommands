@@ -1,0 +1,2 @@
+blockInRoom block room isTan room
+go straight down and through open door . go all way to left of star . push star up and a little to right through door . stop when you are just inside door .

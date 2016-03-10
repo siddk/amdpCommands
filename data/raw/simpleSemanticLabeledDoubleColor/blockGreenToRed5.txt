@@ -1,0 +1,2 @@
+isGreen isRed blockInRoom
+take the piece in the green area to the red place

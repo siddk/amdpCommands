@@ -1,0 +1,2 @@
+isRed isBlue blockInRoom
+push the piece in the rose location to the cobalt location

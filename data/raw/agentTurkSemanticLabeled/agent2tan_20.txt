@@ -1,0 +1,2 @@
+agentInRoom agent room isTan room
+walk into tan room

@@ -1,0 +1,2 @@
+isGreen isRed blockInRoom
+push the piece in the jade room to the rose room

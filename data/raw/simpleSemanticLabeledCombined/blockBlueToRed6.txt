@@ -1,0 +1,2 @@
+isBlue isRed blockInRoom
+pull the star in the blue place to the crimson place

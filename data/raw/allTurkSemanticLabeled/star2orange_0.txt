@@ -1,0 +1,2 @@
+blockInRoom block room isOrange room blockInRoom block room isTan room agentInRoom agent room isTeal room
+enter flesh colored room from cyan room and push star into orange room . be sure not to go into orange room yourself , just star .

@@ -1,0 +1,2 @@
+isGreen agentInRoom
+leave for the emerald room

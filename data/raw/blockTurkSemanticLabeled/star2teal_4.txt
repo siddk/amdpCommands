@@ -1,0 +1,2 @@
+blockInRoom block room isTeal room blockInRoom block room isTan room agentInRoom agent room isOrange room
+go forward into orange room , take star and put it in blue room while you remain in beige room .

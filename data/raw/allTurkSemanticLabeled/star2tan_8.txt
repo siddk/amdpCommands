@@ -1,0 +1,2 @@
+blockInRoom block room isTan room blockInRoom block room isTeal room agentInRoom agent room isOrange room
+go down towards opening at bottom of reddish box , go through opening . n go to left towards star , going around it and pushing it upwards towards opening to tan section . push star all way through door , and stop in doorway between teal and tan sections .

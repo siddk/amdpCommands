@@ -1,0 +1,2 @@
+agentInRoom agent room isTan room
+from where you stand , take three steps towards and into yellow room .

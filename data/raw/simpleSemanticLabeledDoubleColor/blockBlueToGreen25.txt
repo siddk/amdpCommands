@@ -1,0 +1,2 @@
+isBlue isGreen blockInRoom
+pull the box in the blue place to the emerald place

@@ -1,0 +1,2 @@
+blockInRoom block room isOrange room blockInRoom block room isTan room agentInRoom agent room isTeal room
+in blue rectangle , face door that leads into tan rectangle . walk straight into tan rectangle and stop to left of star , on opposite side of star as orange rectangle . n , push star into orange rectangle to point that star is in orange but you are still in tan .

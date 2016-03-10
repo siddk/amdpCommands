@@ -1,0 +1,2 @@
+isRed isGreen blockInRoom
+pull the block in the cherry area to the jade room

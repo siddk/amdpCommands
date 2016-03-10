@@ -1,0 +1,2 @@
+blockInRoom block room isOrange room
+push star into orange section in least moves possible .

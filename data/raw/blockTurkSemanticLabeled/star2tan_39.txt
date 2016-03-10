@@ -1,0 +1,2 @@
+blockInRoom block room isTan room blockInRoom block room isTeal room
+proceed to green room . grab star and push it just past door to yellow room .

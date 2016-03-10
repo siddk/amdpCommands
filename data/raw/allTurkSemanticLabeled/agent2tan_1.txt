@@ -1,0 +1,2 @@
+agentInRoom agent room isTan room agentInRoom agent room isOrange room
+walk from orange room to brown room , in anor words take door on right to brown room .

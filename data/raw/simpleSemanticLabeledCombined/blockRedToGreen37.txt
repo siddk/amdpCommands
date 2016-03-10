@@ -1,0 +1,2 @@
+isRed isGreen blockInRoom
+push the block in the crimson location to the olive room

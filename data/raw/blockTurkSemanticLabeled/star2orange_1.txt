@@ -1,0 +1,2 @@
+blockInRoom block room isOrange room blockInRoom block room isTan room agentInRoom agent room isTeal room
+exit room with blue floor through left door , and enter room with white / cream floor . you will see a large gold star near a door in right hand wall . push star through that door . it should enter a room with a red floor . do not enter room yourself once you have pushed star into it .

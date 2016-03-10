@@ -1,0 +1,2 @@
+blockInRoom block room isOrange room blockInRoom block room isTan room agentInRoom agent room isTeal room
+start in greenish room . go into beige room . pick up star . take it to doorway to orange room . keep your body in beige room , but put star just inside orange room .

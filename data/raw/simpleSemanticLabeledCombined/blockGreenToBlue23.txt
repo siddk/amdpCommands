@@ -1,0 +1,2 @@
+isGreen isBlue blockInRoom
+move the star in the olive area to the navy location

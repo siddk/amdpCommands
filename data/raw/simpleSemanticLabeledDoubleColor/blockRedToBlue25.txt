@@ -1,0 +1,2 @@
+isRed isBlue blockInRoom
+push the star in the rose place to the blue area

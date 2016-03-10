@@ -1,0 +1,2 @@
+isGreen blockInRoom
+move the piece to the green location

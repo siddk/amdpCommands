@@ -1,0 +1,2 @@
+isBlue isGreen blockInRoom
+take the piece in the sapphire place to the emerald location

@@ -1,0 +1,2 @@
+blockInRoom block room isTeal room agentInRoom agent room isOrange room
+start in red section . go through door to right and go into red section . push star down into blue section .

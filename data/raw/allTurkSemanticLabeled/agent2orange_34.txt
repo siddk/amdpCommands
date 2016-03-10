@@ -1,0 +1,2 @@
+agentInRoom agent room isOrange room agentInRoom agent room isTeal room
+start in blue section , go up and to right , and n through door to orange section .

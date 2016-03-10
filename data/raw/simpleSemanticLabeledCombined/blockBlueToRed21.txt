@@ -1,0 +1,2 @@
+isBlue isRed blockInRoom
+take the star in the cobalt area to the rose room

@@ -1,0 +1,2 @@
+isGreen isRed blockInRoom
+pull the star in the green location to the red location

@@ -1,0 +1,2 @@
+blockInRoom block room isTan room blockInRoom block room isTeal room
+go into green room ( hallway ?), take star re , and go to beige room .

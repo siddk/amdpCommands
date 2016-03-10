@@ -1,0 +1,2 @@
+blockInRoom block room isTeal room
+enter room to west and puch star into room to south

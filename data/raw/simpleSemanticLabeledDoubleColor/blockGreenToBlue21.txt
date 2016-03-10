@@ -1,0 +1,2 @@
+isGreen isBlue blockInRoom
+take the piece in the olive area to the sapphire room

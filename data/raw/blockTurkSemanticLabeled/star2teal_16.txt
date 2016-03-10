@@ -1,0 +1,2 @@
+blockInRoom block room isTeal room
+go through left door and knock star down through door below

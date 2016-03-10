@@ -1,0 +1,2 @@
+isGreen isBlue blockInRoom
+move the piece in the emerald room to the navy place

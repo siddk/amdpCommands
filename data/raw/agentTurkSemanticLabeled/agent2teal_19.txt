@@ -1,0 +1,2 @@
+agentInRoom agent room isTeal room agentInRoom agent room isTan room
+in tan rectangle , face door that leads into blue rectangle . walk straight , taking shortest path that leads through door into blue rectangle .

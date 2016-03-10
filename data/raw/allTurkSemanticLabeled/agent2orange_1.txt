@@ -1,0 +1,2 @@
+agentInRoom agent room isOrange room
+enter room with orange carpet .

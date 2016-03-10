@@ -1,0 +1,2 @@
+blockInRoom block room isTan room blockInRoom block room isTeal room agentInRoom agent room isOrange room
+leave red-floored room and enter blue-floored room . approach star and push it through doorway of tan-floored room .

@@ -1,0 +1,2 @@
+blockInRoom block room isTan room blockInRoom block room isTeal room agentInRoom agent room isOrange room
+move from peach block to blue block , grab star and move it just through entrance of tan block .

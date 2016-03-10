@@ -1,0 +1,2 @@
+isGreen isRed blockInRoom
+move the box in the green room to the cherry place

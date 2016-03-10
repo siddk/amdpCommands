@@ -1,0 +1,2 @@
+blockInRoom block room isOrange room blockInRoom block room isTan room
+facing doors , walk into beige room ( which is door on left side , if you're facing doors ). when you see star , push it through or door ( orange room ) but do not step into room !

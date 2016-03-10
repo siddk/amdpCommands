@@ -1,0 +1,2 @@
+isBlue isGreen blockInRoom
+move the box in the sapphire room to the green room

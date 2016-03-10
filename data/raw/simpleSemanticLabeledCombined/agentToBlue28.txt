@@ -1,0 +1,2 @@
+isBlue agentInRoom
+arrive at the cobalt place

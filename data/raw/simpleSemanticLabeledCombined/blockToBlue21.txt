@@ -1,0 +1,2 @@
+isBlue blockInRoom
+pull the star to the blue place

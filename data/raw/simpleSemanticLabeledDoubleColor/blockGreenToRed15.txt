@@ -1,0 +1,2 @@
+isGreen isRed blockInRoom
+push the piece in the emerald location to the cherry room

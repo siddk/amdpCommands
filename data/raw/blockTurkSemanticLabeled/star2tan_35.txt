@@ -1,0 +1,2 @@
+blockInRoom block room isTan room blockInRoom block room isTeal room
+move star up from blue area to tan area through opening between those two colors .

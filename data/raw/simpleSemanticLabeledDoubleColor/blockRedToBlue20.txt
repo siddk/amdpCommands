@@ -1,0 +1,2 @@
+isRed isBlue blockInRoom
+move the star in the red location to the sapphire room

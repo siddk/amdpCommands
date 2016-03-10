@@ -1,0 +1,2 @@
+isRed isGreen blockInRoom
+pull the piece in the cherry place to the olive area

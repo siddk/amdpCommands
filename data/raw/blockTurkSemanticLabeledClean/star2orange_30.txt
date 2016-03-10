@@ -1,0 +1,2 @@
+blockInRoom block room isOrange room blockInRoom block room isTan room agentInRoom agent room isTeal room
+start from blue rectangle and transfer to beige one . while doing this , drag star to orange box ; while you're still in beige rectangle .

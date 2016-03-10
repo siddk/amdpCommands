@@ -1,0 +1,2 @@
+blockInRoom block room isTeal room blockInRoom block room isTan room agentInRoom agent room isOrange room
+move from right to left from red into beige . approach star from right so you end up just above it . push star directly down until star reaches blue .

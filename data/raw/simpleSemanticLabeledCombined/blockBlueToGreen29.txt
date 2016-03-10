@@ -1,0 +1,2 @@
+isBlue isGreen blockInRoom
+move the block in the sapphire area to the emerald area

@@ -1,0 +1,2 @@
+agentInRoom agent room isTeal room agentInRoom agent room isTan room
+move south through first passageway in wall below you . once you go through passage , look down , floor should be blue .

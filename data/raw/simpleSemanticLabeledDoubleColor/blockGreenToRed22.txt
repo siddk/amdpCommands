@@ -1,0 +1,2 @@
+isGreen isRed blockInRoom
+take the star in the olive place to the rose area
