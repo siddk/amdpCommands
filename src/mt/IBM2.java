@@ -2,11 +2,11 @@ package mt;
 
 import language.LanguageExpression;
 import language.MachineLanguage;
+import language.NaturalLanguage;
 import structures.*;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
-import java.util.stream.IntStream;
 
 /**
  * Core class for the IBM Model 2 Translation system. Learns translation probabilities and
@@ -36,7 +36,7 @@ import java.util.stream.IntStream;
  *
  * Created by Sidd Karamcheti on 3/8/16.
  */
-public class IBM2<S extends LanguageExpression,T extends LanguageExpression> extends IBMModel<S,T> implements MachineTranslator<S,T>{
+public class IBM2 extends IBMModel implements MachineTranslator{
     /**
      * Instantiate an IBM Model 2 instance with a given Parallel Corpus, and a set number
      * of EM iterations.
@@ -44,11 +44,11 @@ public class IBM2<S extends LanguageExpression,T extends LanguageExpression> ext
      * @param corpus Weakly aligned parallel corpus.
      * @param em_iterations Number of EM iterations for training.
      */
-    public IBM2(ParallelCorpus corpus, Class<S> source, Class<T> target, int em_iterations) {
-        super(corpus,source,target);
+    public IBM2(ParallelCorpus corpus, int em_iterations) {
+        super(corpus);
 
         // Initialize tau translation probabilities by running a few iterations of Model 1 training
-        IBM1<S,T> ibm1 = new IBM1<>(corpus, source, target, em_iterations);
+        IBM1 ibm1 = new IBM1(corpus, em_iterations);
         this.tau = ibm1.tau;
 
         // Initialize all delta probabilities
@@ -114,7 +114,7 @@ public class IBM2<S extends LanguageExpression,T extends LanguageExpression> ext
                 for (int i = 0; i < sourceSent.size(); i++) {
                     String s = sourceSent.get(i);
                     totalCount.put(t,
-                                   this.tau.get(t).get(s) * this.delta.get(i).get(j).get(l).get(m));
+                            this.tau.get(t).get(s) * this.delta.get(i).get(j).get(l).get(m));
                 }
             }
 
@@ -146,7 +146,7 @@ public class IBM2<S extends LanguageExpression,T extends LanguageExpression> ext
                 for (int l : counts.nIJLM.get(i).get(j).keySet()) {
                     for (int m : counts.nIJLM.get(i).get(j).get(l).keySet()) {
                         double estimate = counts.nIJLM.get(i).get(j).get(l).get(m) /
-                                          counts.nIO.get(j).get(l).get(m);
+                                counts.nIO.get(j).get(l).get(m);
                         this.delta.get(i).get(j).get(l).put(m, Math.max(estimate, MIN_PROB));
                     }
                 }
@@ -160,42 +160,41 @@ public class IBM2<S extends LanguageExpression,T extends LanguageExpression> ext
      * @return A language expression in the model's target language
      */
     @Override
-    public T translate(S sourceExpression) {
-        try {
-            Collection<String> enumerated = MachineLanguage.enumerate(6);
-            int m = sourceExpression.getWords().size();
-            double maxLikelihood = Double.NEGATIVE_INFINITY;
-            String likelyExpr = "";
-            for(String expr : enumerated){
-                double likelihood = 1.0;
-                int l = expr.split(" ").length;
-                likelihood *= Math.pow(this.targetPrior, l);
-                double sum = 0.0;
-                for(int a : this.delta.keySet()) {
-                    double product = 1.0;
-                    for (int k = 0; k < m; k++) {
-                        product *= this.delta.get(a).get(k).get(l).get(m) * this.tau.get(a).get(k);
-                    }
-                    sum += product;
+    public LanguageExpression translate(LanguageExpression sourceExpression) {
+        Collection<String> enumerated = MachineLanguage.enumerate(6);
+        int m = sourceExpression.getWords().size();
+        double maxLikelihood = Double.NEGATIVE_INFINITY;
+        String likelyExpr = "";
+        for(String expr : enumerated){
+            double likelihood = 1.0;
+            int l = expr.split(" ").length;
+            likelihood *= Math.pow(this.targetPrior, l);
+            double sum = 0.0;
+            for(int a : this.delta.keySet()) {
+                double product = 1.0;
+                for (int k = 0; k < m; k++) {
+                    product *= this.delta.get(a).get(k).get(l).get(m) * this.tau.get(a).get(k);
                 }
-                likelihood *= sum;
-                if(likelihood > maxLikelihood){
-                    maxLikelihood = likelihood;
-                    likelyExpr = expr;
-                }
+                sum += product;
             }
-            List<String> translated = Arrays.asList(likelyExpr.split(" "));
-            return this.target.getConstructor(List.class).newInstance(translated);
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
+            likelihood *= sum;
+            if(likelihood > maxLikelihood){
+                maxLikelihood = likelihood;
+                likelyExpr = expr;
+            }
         }
-        System.err.println("IBM Model2 decoding messed up...");
-        return null;
+        List<String> translated = Arrays.asList(likelyExpr.split(" "));
+        return new MachineLanguage(translated);
+    }
+
+    public static void main(String[] args){
+        String english = "/home/dilip/CSCI2951K/amdpCommands/data/corpus/english.txt";
+        String machine = "/home/dilip/CSCI2951K/amdpCommands/data/corpus/machine.txt";
+        ParallelCorpus corpus = new ParallelCorpus(english, machine);
+        IBM2 ibm2 = new IBM2(corpus, 10);
+        String command = "enter room with orange carpet .";
+        List<String> test = new ArrayList<>(Arrays.asList(command.split(" ")));
+        LanguageExpression translated = ibm2.translate(new NaturalLanguage(test));
+        System.out.println(translated.getWords());
     }
 }

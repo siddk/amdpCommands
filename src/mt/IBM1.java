@@ -6,8 +6,6 @@ import structures.Counts;
 import structures.DefaultDict;
 import structures.ParallelCorpus;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,7 +30,7 @@ import java.util.List;
  *
  * Created by Sidd Karamcheti on 3/7/16.
  */
-public class IBM1<S extends LanguageExpression,T extends LanguageExpression> extends IBMModel<S,T> implements MachineTranslator<S,T>{
+public class IBM1 extends IBMModel implements MachineTranslator{
     /**
      * Instantiate an IBM Model 1 instance with a given Parallel Corpus, and a set number
      * of EM iterations.
@@ -40,8 +38,8 @@ public class IBM1<S extends LanguageExpression,T extends LanguageExpression> ext
      * @param corpus Weakly aligned parallel corpus.
      * @param em_iterations Number of EM Iterations for training.
      */
-    public IBM1(ParallelCorpus corpus, Class<S> source, Class<T> target, int em_iterations) {
-        super(corpus,source,target);
+    public IBM1(ParallelCorpus corpus, int em_iterations) {
+        super(corpus);
         this.setUniformProbabilities();
 
         for (int i = 0; i < em_iterations; i++) {
@@ -68,8 +66,9 @@ public class IBM1<S extends LanguageExpression,T extends LanguageExpression> ext
         // E - Step
         for (int i = 0; i < this.corpus.size(); i++) {
             AlignedSent alignedSent = this.corpus.get(i);
-            List<String> targetSent = alignedSent.getSourceWords();
-            List<String> sourceSent = alignedSent.getTargetWords();
+            List<String> targetSent = alignedSent.getTargetWords();
+            List<String> sourceSent = alignedSent.getSourceWords();
+            System.out.println(sourceSent);
             sourceSent.add(0, NULL); // Prepend NULL Token
 
             // E - Step (a) - Compute normalization factors
@@ -105,7 +104,7 @@ public class IBM1<S extends LanguageExpression,T extends LanguageExpression> ext
      * @return A language expression in the model's target language
      */
     @Override
-    public T translate(S sourceExpression) {
+    public LanguageExpression translate(LanguageExpression sourceExpression) {
         return null;
     }
 }

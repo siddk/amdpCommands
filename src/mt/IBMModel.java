@@ -1,6 +1,5 @@
 package mt;
 
-import language.LanguageExpression;
 import structures.DefaultDict;
 import structures.ParallelCorpus;
 
@@ -17,7 +16,7 @@ import java.util.Set;
  *
  * Created by Sidd Karamcheti on 3/7/16.
  */
-public abstract class IBMModel<S extends LanguageExpression, T extends LanguageExpression> {
+public abstract class IBMModel {
     /* tau[str][str]: double ==> Probability(target word | source word)
      * Indexed as tau.get(target_word).get(source_word) */
     protected DefaultDict<String, DefaultDict<String, Double>> tau;
@@ -27,8 +26,6 @@ public abstract class IBMModel<S extends LanguageExpression, T extends LanguageE
     protected DefaultDict<Integer,
             DefaultDict<Integer, DefaultDict<Integer, DefaultDict<Integer, Double>>>> delta;
 
-    protected final Class<S> source;
-    protected final Class<T> target;
     protected final ParallelCorpus corpus;
     protected final Set<String> sourceVocabulary;
     protected final Set<String> targetVocabulary;
@@ -41,10 +38,8 @@ public abstract class IBMModel<S extends LanguageExpression, T extends LanguageE
      *
      * @param corpus Parallel corpus object consisting of weakly aligned source-target pairs.
      */
-    public IBMModel(ParallelCorpus corpus, Class<S> source, Class<T> target) {
+    public IBMModel(ParallelCorpus corpus) {
         this.corpus = corpus;
-        this.source = source;
-        this.target = target;
         this.tau = new DefaultDict<>(new DefaultDict<>(MIN_PROB));
         this.delta = new DefaultDict<>(new DefaultDict<>(new DefaultDict<>(new DefaultDict<>(MIN_PROB))));
         this.sourceVocabulary = new HashSet<>();

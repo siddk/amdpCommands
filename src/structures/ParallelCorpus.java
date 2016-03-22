@@ -1,6 +1,8 @@
 package structures;
 
 import language.LanguageExpression;
+import language.MachineLanguage;
+import language.NaturalLanguage;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -16,8 +18,6 @@ import java.util.stream.Collectors;
  * Created by Sidd Karamcheti on 3/7/16.
  */
 public class ParallelCorpus {
-    protected final Class<LanguageExpression> source;
-    protected final Class<LanguageExpression> target;
     protected int maxTargetLength;
     public List<AlignedSent> corpus;
 
@@ -27,9 +27,7 @@ public class ParallelCorpus {
      * @param sourcePath Path to source half of weakly aligned parallel corpus
      * @param targetPath Path to target half of weakly aligned parallel corpus
      */
-    public ParallelCorpus(Class<LanguageExpression> source, Class<LanguageExpression> target, String sourcePath, String targetPath) {
-        this.source = source;
-        this.target = target;
+    public ParallelCorpus(String sourcePath, String targetPath) {
         this.maxTargetLength = 0;
         this.corpus = new ArrayList<>();
         try(BufferedReader brs = new BufferedReader(new FileReader(sourcePath));
@@ -37,8 +35,8 @@ public class ParallelCorpus {
             String sourceLine;
             String targetLine;
             while((sourceLine = brs.readLine()) != null && (targetLine = brt.readLine()) != null){
-                LanguageExpression sourceExpr = this.source.getConstructor(List.class).newInstance(Arrays.asList(sourceLine.split(" ")));
-                LanguageExpression targetExpr = this.target.getConstructor(List.class).newInstance(Arrays.asList(targetLine.split(" ")));
+                LanguageExpression sourceExpr = new NaturalLanguage(Arrays.asList(sourceLine.split(" ")));
+                LanguageExpression targetExpr = new MachineLanguage(Arrays.asList(targetLine.split(" ")));
                 AlignedSent alignedSent = new AlignedSent(sourceExpr, targetExpr);
                 this.corpus.add(alignedSent);
                 this.maxTargetLength += Math.max(maxTargetLength, targetLine.split(" ").length);
@@ -46,14 +44,6 @@ public class ParallelCorpus {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
     }
