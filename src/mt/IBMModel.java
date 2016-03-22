@@ -32,7 +32,7 @@ public abstract class IBMModel<S extends LanguageExpression, T extends LanguageE
     protected final ParallelCorpus corpus;
     protected final Set<String> sourceVocabulary;
     protected final Set<String> targetVocabulary;
-    protected final DefaultDict<String,Double> targetModel;
+    protected final double targetPrior;
     protected static final String NULL = "**N**";
     protected static final double MIN_PROB = 1.0e-12;
 
@@ -50,7 +50,7 @@ public abstract class IBMModel<S extends LanguageExpression, T extends LanguageE
         this.sourceVocabulary = new HashSet<>();
         this.targetVocabulary = new HashSet<>();
         this.updateVocabulary(corpus);
-        this.targetModel = new DefaultDict<>(1.0 / this.targetVocabulary.size());
+        this.targetPrior = 1.0 / this.targetVocabulary.size();
     }
 
     /**

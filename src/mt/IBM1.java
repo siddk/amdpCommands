@@ -106,22 +106,6 @@ public class IBM1<S extends LanguageExpression,T extends LanguageExpression> ext
      */
     @Override
     public T translate(S sourceExpression) {
-        try {
-            List<String> translated = new ArrayList<>();
-            for(String sourceWord : sourceExpression.getWords()){
-
-            }
-            return this.target.getConstructor(List.class).newInstance(translated);
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        }
-
         return null;
     }
 }

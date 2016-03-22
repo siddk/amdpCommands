@@ -1,10 +1,12 @@
 package mt;
 
 import language.LanguageExpression;
+import language.MachineLanguage;
 import structures.*;
 
-import java.util.HashSet;
-import java.util.List;
+import java.lang.reflect.InvocationTargetException;
+import java.util.*;
+import java.util.stream.IntStream;
 
 /**
  * Core class for the IBM Model 2 Translation system. Learns translation probabilities and
@@ -159,6 +161,41 @@ public class IBM2<S extends LanguageExpression,T extends LanguageExpression> ext
      */
     @Override
     public T translate(S sourceExpression) {
+        try {
+            Collection<String> enumerated = MachineLanguage.enumerate(6);
+            int m = sourceExpression.getWords().size();
+            double maxLikelihood = Double.NEGATIVE_INFINITY;
+            String likelyExpr = "";
+            for(String expr : enumerated){
+                double likelihood = 1.0;
+                int l = expr.split(" ").length;
+                likelihood *= Math.pow(this.targetPrior, l);
+                double sum = 0.0;
+                for(int a : this.delta.keySet()) {
+                    double product = 1.0;
+                    for (int k = 0; k < m; k++) {
+                        product *= this.delta.get(a).get(k).get(l).get(m) * this.tau.get(a).get(k);
+                    }
+                    sum += product;
+                }
+                likelihood *= sum;
+                if(likelihood > maxLikelihood){
+                    maxLikelihood = likelihood;
+                    likelyExpr = expr;
+                }
+            }
+            List<String> translated = Arrays.asList(likelyExpr.split(" "));
+            return this.target.getConstructor(List.class).newInstance(translated);
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        System.err.println("IBM Model2 decoding messed up...");
         return null;
     }
 }

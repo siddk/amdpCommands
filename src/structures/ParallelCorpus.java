@@ -7,9 +7,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Define a Parallel Corpus as two sets of aligned sentences in different languages.
@@ -19,6 +18,7 @@ import java.util.List;
 public class ParallelCorpus {
     protected final Class<LanguageExpression> source;
     protected final Class<LanguageExpression> target;
+    protected int maxTargetLength;
     public List<AlignedSent> corpus;
 
     /**
@@ -30,6 +30,7 @@ public class ParallelCorpus {
     public ParallelCorpus(Class<LanguageExpression> source, Class<LanguageExpression> target, String sourcePath, String targetPath) {
         this.source = source;
         this.target = target;
+        this.maxTargetLength = 0;
         this.corpus = new ArrayList<>();
         try(BufferedReader brs = new BufferedReader(new FileReader(sourcePath));
             BufferedReader brt = new BufferedReader(new FileReader(targetPath))){
@@ -40,6 +41,7 @@ public class ParallelCorpus {
                 LanguageExpression targetExpr = this.target.getConstructor(List.class).newInstance(Arrays.asList(targetLine.split(" ")));
                 AlignedSent alignedSent = new AlignedSent(sourceExpr, targetExpr);
                 this.corpus.add(alignedSent);
+                this.maxTargetLength += Math.max(maxTargetLength, targetLine.split(" ").length);
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -72,6 +74,25 @@ public class ParallelCorpus {
      */
     public AlignedSent get(int index) {
         return this.corpus.get(index);
+    }
+
+    /**
+     * Get the maximum length of target sentence in the corpus
+     * @return The maximum length of target sentence in the corpus
+     */
+    public int getMaxTargetLength(){
+        return this.maxTargetLength;
+    }
+
+    /**
+     * Compute the probability of a target language sentence of length l given
+     * source language sentences of length m
+     */
+    public double computeLengthEstimates(int l, int m){
+        List<AlignedSent> filtered = this.corpus.stream().filter(s -> s.getSourceWords().size() == m).collect(Collectors.toList());
+        long total = filtered.size();
+        long lCount = filtered.stream().filter(s -> s.getTargetWords().size() == l).count();
+        return (double) (lCount + 1) / total;
     }
 
     /**
