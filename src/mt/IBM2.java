@@ -5,8 +5,8 @@ import language.MachineLanguage;
 import language.NaturalLanguage;
 import structures.*;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Core class for the IBM Model 2 Translation system. Learns translation probabilities and
@@ -48,7 +48,7 @@ public class IBM2 extends IBMModel implements MachineTranslator{
         super(corpus);
 
         // Initialize tau translation probabilities by running a few iterations of Model 1 training
-        IBM1 ibm1 = new IBM1(corpus, em_iterations);
+        IBM1 ibm1 = new IBM1(corpus, 2 * em_iterations);
         this.tau = ibm1.tau;
 
         // Initialize all delta probabilities
@@ -58,6 +58,7 @@ public class IBM2 extends IBMModel implements MachineTranslator{
         for (int i = 0; i < em_iterations; i++) {
             this.train();
         }
+
     }
 
     /**
@@ -79,7 +80,6 @@ public class IBM2 extends IBMModel implements MachineTranslator{
 
                 for (int i = 0; i < l + 1; i++) {
                     for (int j = 1; j < m + 1; j++) {
-                        // TODO - This is super broken FIXME SOS FIXME!!!
                         DefaultDict<Integer, Double> mProb = new DefaultDict<>(initialProb);
                         DefaultDict<Integer, DefaultDict<Integer, Double>> lmProb = new DefaultDict<>(mProb);
                         DefaultDict<Integer, DefaultDict<Integer, DefaultDict<Integer, Double>>> jlmProb = new DefaultDict<>(lmProb);
@@ -99,10 +99,18 @@ public class IBM2 extends IBMModel implements MachineTranslator{
         // E - Step
         for (int index = 0; index < this.corpus.size(); index++) {
             AlignedSent alignedSent = this.corpus.get(index);
-            List<String> targetSent = alignedSent.getSourceWords();
-            List<String> sourceSent = alignedSent.getTargetWords();
-            sourceSent.add(0, NULL); // Prepend NULL Token
-            targetSent.add(0, "UNUSED"); // 1 - Indexed
+            List<String> targetSent = alignedSent.getTargetWords();
+            List<String> sourceSent = alignedSent.getSourceWords();
+            List<String> nulled = new ArrayList<>();
+            nulled.add(NULL);
+            nulled.addAll(sourceSent);
+            nulled = sourceSent;
+            //sourceSent.add(0, NULL); // Prepend NULL Token
+            List<String> modtarget = new ArrayList<>();
+            modtarget.add("UNUSED");
+            modtarget.addAll(targetSent);
+            targetSent = modtarget;
+            //targetSent.add(0, "UNUSED"); // 1 - Indexed
 
             int l = sourceSent.size() - 1;
             int m = targetSent.size() - 1;
@@ -161,19 +169,25 @@ public class IBM2 extends IBMModel implements MachineTranslator{
      */
     @Override
     public LanguageExpression translate(LanguageExpression sourceExpression) {
+        List<String> sourceSplit = sourceExpression.getWords();
+        Map<String, Double> exprProbs = new HashMap<>();
         Collection<String> enumerated = MachineLanguage.enumerate(6);
+        enumerated.remove("agentInRoom blockInRoom");
         int m = sourceExpression.getWords().size();
         double maxLikelihood = Double.NEGATIVE_INFINITY;
         String likelyExpr = "";
         for(String expr : enumerated){
+            String[] exprSplit = expr.split(" ");
             double likelihood = 1.0;
-            int l = expr.split(" ").length;
-            likelihood *= Math.pow(this.targetPrior, l);
+            int l = exprSplit.length;
+            likelihood *= Math.pow(this.targetPrior * this.lengthPrior.get(l).get(m), l);
             double sum = 0.0;
-            for(int a : this.delta.keySet()) {
+            for(int a : this.delta.values().stream().map(v -> v.keySet()).flatMap(x -> x.stream()).collect(Collectors.toSet())) {
+                a = Math.min(l-1, a);
                 double product = 1.0;
                 for (int k = 0; k < m; k++) {
-                    product *= this.delta.get(a).get(k).get(l).get(m) * this.tau.get(a).get(k);
+                    product *= this.delta.get(k).get(a).get(l).get(m);
+                    product *= this.tau.get(exprSplit[a]).get(sourceSplit.get(k));
                 }
                 sum += product;
             }
@@ -182,8 +196,13 @@ public class IBM2 extends IBMModel implements MachineTranslator{
                 maxLikelihood = likelihood;
                 likelyExpr = expr;
             }
+            exprProbs.put(expr, likelihood);
         }
         List<String> translated = Arrays.asList(likelyExpr.split(" "));
+        exprProbs.entrySet().stream().sorted((e1,e2) -> e1.getValue().compareTo(e2.getValue())).forEachOrdered(System.out::println);
+
+//        System.out.println(this.tau);
+//        System.out.println(this.delta);
         return new MachineLanguage(translated);
     }
 
@@ -191,8 +210,8 @@ public class IBM2 extends IBMModel implements MachineTranslator{
         String english = "/home/dilip/CSCI2951K/amdpCommands/data/corpus/english.txt";
         String machine = "/home/dilip/CSCI2951K/amdpCommands/data/corpus/machine.txt";
         ParallelCorpus corpus = new ParallelCorpus(english, machine);
-        IBM2 ibm2 = new IBM2(corpus, 10);
-        String command = "enter room with orange carpet .";
+        IBM2 ibm2 = new IBM2(corpus, 15);
+        String command = "take the star to the green room";
         List<String> test = new ArrayList<>(Arrays.asList(command.split(" ")));
         LanguageExpression translated = ibm2.translate(new NaturalLanguage(test));
         System.out.println(translated.getWords());

@@ -1,5 +1,6 @@
 package structures;
 
+
 /**
  * Counts structure for keeping track of values during EM.
  *
@@ -12,7 +13,7 @@ public class Counts {
     public final DefaultDict<String, Double> nTO;
 
     public Counts() {
-        this.nTS = new DefaultDict<>(new DefaultDict<>(0.0));
+        this.nTS = new DefaultDict<>(o -> new DefaultDict<>(0.0));
         this.nTO = new DefaultDict<>(0.0);
     }
 

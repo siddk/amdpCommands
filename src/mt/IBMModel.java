@@ -1,9 +1,11 @@
 package mt;
 
+import structures.AlignedSent;
 import structures.DefaultDict;
 import structures.ParallelCorpus;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -29,6 +31,7 @@ public abstract class IBMModel {
     protected final ParallelCorpus corpus;
     protected final Set<String> sourceVocabulary;
     protected final Set<String> targetVocabulary;
+    protected final DefaultDict<Integer, DefaultDict<Integer, Double>> lengthPrior;
     protected final double targetPrior;
     protected static final String NULL = "**N**";
     protected static final double MIN_PROB = 1.0e-12;
@@ -40,11 +43,13 @@ public abstract class IBMModel {
      */
     public IBMModel(ParallelCorpus corpus) {
         this.corpus = corpus;
-        this.tau = new DefaultDict<>(new DefaultDict<>(MIN_PROB));
-        this.delta = new DefaultDict<>(new DefaultDict<>(new DefaultDict<>(new DefaultDict<>(MIN_PROB))));
+        this.tau = new DefaultDict<>(o -> new DefaultDict<>(MIN_PROB));
+        this.delta = new DefaultDict<>(a -> new DefaultDict<>(b -> new DefaultDict<>(c -> new DefaultDict<>(MIN_PROB))));
         this.sourceVocabulary = new HashSet<>();
         this.targetVocabulary = new HashSet<>();
+        this.lengthPrior = new DefaultDict<>(o -> new DefaultDict<>(MIN_PROB));
         this.updateVocabulary(corpus);
+        this.computeLengthPrior();
         this.targetPrior = 1.0 / this.targetVocabulary.size();
     }
 
@@ -61,4 +66,31 @@ public abstract class IBMModel {
         });
     }
 
+    /**
+     * Computes the prior distribution over aligned sentence lengths from the parallel corpus
+     */
+    public void computeLengthPrior(){
+        DefaultDict<Integer, DefaultDict<Integer, Double>> nLM = new DefaultDict<>(o -> new DefaultDict<>(0.0));
+        DefaultDict<Integer, Double> nLO = new DefaultDict<>(0.0);
+
+        for(AlignedSent sent : this.corpus.getSentences()){
+            List<String> sourceSent = sent.getSourceWords();
+            List<String> targetSent = sent.getTargetWords();
+            int l = targetSent.size();
+            int m = sourceSent.size();
+
+            double updateLM = nLM.get(l).get(m);
+            double updateLO = nLO.get(l);
+
+            nLM.get(l).put(m, updateLM + 1);
+            nLO.put(l, updateLO + 1);
+        }
+
+        for(int l : nLM.keySet()){
+            for(int m : nLM.get(l).keySet()){
+                double estimate = nLM.get(l).get(m) / nLO.get(l);
+                this.lengthPrior.get(l).put(m, estimate);
+            }
+        }
+    }
 }

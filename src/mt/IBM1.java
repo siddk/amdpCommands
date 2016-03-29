@@ -6,6 +6,7 @@ import structures.Counts;
 import structures.DefaultDict;
 import structures.ParallelCorpus;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -51,10 +52,11 @@ public class IBM1 extends IBMModel implements MachineTranslator{
      * Set all Translation (Tau) Probabilities to be uniform.
      */
     public void setUniformProbabilities() {
-        double initialProb = 1.0 / this.targetVocabulary.size();
+        double initialProb = 1.0 / this.sourceVocabulary.size();
 
         // Set each tau value to the initial Probability
-        this.targetVocabulary.stream().forEach(t -> this.tau.put(t, new DefaultDict<>(initialProb)));
+        this.sourceVocabulary.stream().forEach(t -> this.tau.put(t, new DefaultDict<>(initialProb)));
+        this.tau.put(NULL, new DefaultDict<>(initialProb));
     }
 
     /**
@@ -65,11 +67,15 @@ public class IBM1 extends IBMModel implements MachineTranslator{
 
         // E - Step
         for (int i = 0; i < this.corpus.size(); i++) {
+
             AlignedSent alignedSent = this.corpus.get(i);
-            List<String> targetSent = alignedSent.getTargetWords();
-            List<String> sourceSent = alignedSent.getSourceWords();
-            System.out.println(sourceSent);
-            sourceSent.add(0, NULL); // Prepend NULL Token
+            List<String> sourceSent = alignedSent.getTargetWords();
+            List<String> targetSent = alignedSent.getSourceWords();
+            List<String> nulled = new ArrayList<>();
+            nulled.add(NULL);
+            nulled.addAll(targetSent);
+            //sourceSent.add(0, NULL); // Prepend NULL Token
+            targetSent = nulled;
 
             // E - Step (a) - Compute normalization factors
             DefaultDict<String, Double> total_count = new DefaultDict<>(0.0);
@@ -88,9 +94,11 @@ public class IBM1 extends IBMModel implements MachineTranslator{
                     counts.nTO.put(s, counts.nTO.get(s) + normalized_count);
                 }
             }
+
         }
+
         // M - Step
-        for (String t : counts.nTS.keySet()) {
+        for (String t : this.tau.keySet()) {
             for (String s : counts.nTS.get(t).keySet()) {
                 double estimate = counts.nTS.get(t).get(s) / counts.nTO.get(s);
                 this.tau.get(t).put(s, Math.max(estimate, MIN_PROB));

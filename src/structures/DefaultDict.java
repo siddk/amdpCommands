@@ -57,6 +57,7 @@ public class DefaultDict<K, V> extends HashMap<K, V> {
         V returnValue = super.get(key);
         if (returnValue == null) {
             if (this.defaultValue != null) {
+                //System.out.println("Defaulted");
                 returnValue = this.defaultValue;
             }
             else if(this.defaultFunction != null){

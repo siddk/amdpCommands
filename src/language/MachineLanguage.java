@@ -47,6 +47,11 @@ public class MachineLanguage implements LanguageExpression {
         }).collect(Collectors.toSet());
         realRet = realRet.stream().filter(c -> {
             String[] words = c.split(" ");
+            long blocks = Arrays.stream(words).filter(w -> w.equals("blockInRoom")).count();
+            return blocks <= 2;
+        }).collect(Collectors.toSet());
+        realRet = realRet.stream().filter(c -> {
+            String[] words = c.split(" ");
             long agents = Arrays.stream(words).filter(w -> w.contains("is")).count();
             return agents <= 3;
         }).collect(Collectors.toSet());
@@ -59,7 +64,6 @@ public class MachineLanguage implements LanguageExpression {
         }).collect(Collectors.toSet());
 
         realRet = realRet.stream().filter(c -> c.split(" ").length % 2 == 0).collect(Collectors.toSet());
-        System.out.println(realRet.size() + "\n\n\n");
         return realRet;
     }
 
