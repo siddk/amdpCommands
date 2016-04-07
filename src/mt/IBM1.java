@@ -94,7 +94,6 @@ public class IBM1 extends IBMModel implements MachineTranslator{
                     counts.nTO.put(s, counts.nTO.get(s) + normalized_count);
                 }
             }
-
         }
 
         // M - Step

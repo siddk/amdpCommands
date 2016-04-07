@@ -67,6 +67,23 @@ public class ParallelCorpus {
     }
 
     /**
+     * Remove the AlignedSentence at the specified index from the ParallelCorpus
+     * @param index Index to remove sentence from in Corpus.
+     */
+    public AlignedSent remove(int index){
+        return this.corpus.remove(index);
+    }
+
+    /**
+     * Insert an AlignedSentence at the specified index into the ParallelCorpus
+     * @param sent The AlignedSentence to add to the corpus
+     * @param index Index to insert the new sentence into the corpus
+     */
+    public void insert(AlignedSent sent, int index){
+        this.corpus.add(index, sent);
+    }
+
+    /**
      * Get the maximum length of target sentence in the corpus
      * @return The maximum length of target sentence in the corpus
      */

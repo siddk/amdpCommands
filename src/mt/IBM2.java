@@ -6,7 +6,10 @@ import language.NaturalLanguage;
 import structures.*;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * Core class for the IBM Model 2 Translation system. Learns translation probabilities and
@@ -56,7 +59,17 @@ public class IBM2 extends IBMModel implements MachineTranslator{
 
         // Run EM
         for (int i = 0; i < em_iterations; i++) {
+
+            if(i == 3){
+                //System.exit(0);
+            }
             this.train();
+//            System.out.println("Tau: ");
+//            this.tau.entrySet().stream().forEach(e -> System.out.println(e.getKey() + "\t" + e.getValue()));
+//            System.out.println("\n");
+//            System.out.println("Delta: ");
+//            this.delta.entrySet().stream().forEach(e -> System.out.println(e.getKey() + "\t" + e.getValue()));
+//            System.out.println("***********");
         }
 
     }
@@ -81,8 +94,8 @@ public class IBM2 extends IBMModel implements MachineTranslator{
                 for (int i = 0; i < l + 1; i++) {
                     for (int j = 1; j < m + 1; j++) {
                         DefaultDict<Integer, Double> mProb = new DefaultDict<>(initialProb);
-                        DefaultDict<Integer, DefaultDict<Integer, Double>> lmProb = new DefaultDict<>(mProb);
-                        DefaultDict<Integer, DefaultDict<Integer, DefaultDict<Integer, Double>>> jlmProb = new DefaultDict<>(lmProb);
+                        DefaultDict<Integer, DefaultDict<Integer, Double>> lmProb = new DefaultDict<>(o -> mProb);
+                        DefaultDict<Integer, DefaultDict<Integer, DefaultDict<Integer, Double>>> jlmProb = new DefaultDict<>(o -> lmProb);
                         this.delta.put(i, jlmProb);
                     }
                 }
@@ -99,12 +112,12 @@ public class IBM2 extends IBMModel implements MachineTranslator{
         // E - Step
         for (int index = 0; index < this.corpus.size(); index++) {
             AlignedSent alignedSent = this.corpus.get(index);
-            List<String> targetSent = alignedSent.getTargetWords();
-            List<String> sourceSent = alignedSent.getSourceWords();
+            List<String> targetSent = alignedSent.getSourceWords();
+            List<String> sourceSent = alignedSent.getTargetWords();
             List<String> nulled = new ArrayList<>();
             nulled.add(NULL);
             nulled.addAll(sourceSent);
-            nulled = sourceSent;
+            sourceSent = nulled;
             //sourceSent.add(0, NULL); // Prepend NULL Token
             List<String> modtarget = new ArrayList<>();
             modtarget.add("UNUSED");
@@ -121,8 +134,8 @@ public class IBM2 extends IBMModel implements MachineTranslator{
                 String t = targetSent.get(j);
                 for (int i = 0; i < sourceSent.size(); i++) {
                     String s = sourceSent.get(i);
-                    totalCount.put(t,
-                            this.tau.get(t).get(s) * this.delta.get(i).get(j).get(l).get(m));
+                    totalCount.put(t, this.tau.get(t).get(s) * this.delta.get(i).get(j).get(l).get(m));
+//                    this.delta.entrySet().stream().forEach(e -> System.out.println(e.getKey() + "\t" + e.getValue()));
                 }
             }
 
@@ -137,6 +150,18 @@ public class IBM2 extends IBMModel implements MachineTranslator{
                     counts.updateDelta(normalized_count, i, j, l, m);
                 }
             }
+
+            for(int j =1;j < targetSent.size();j++){
+                String t = targetSent.get(j);
+                for (int i = 0; i < sourceSent.size(); i++) {
+                    String s = sourceSent.get(i);
+                }
+            }
+
+            //this.delta.entrySet().stream().forEach(e -> System.out.println(e.getKey() + "\t" + e.getValue()));
+//            counts.nIJLM.entrySet().stream().forEach(e -> System.out.println(e.getKey() + "\t" + e.getValue()));
+//            System.out.println("******");
+//            counts.nIO.entrySet().stream().forEach(e -> System.out.println(e.getKey() + "\t" + e.getValue()));
         }
 
         // M - Step
@@ -173,20 +198,23 @@ public class IBM2 extends IBMModel implements MachineTranslator{
         Map<String, Double> exprProbs = new HashMap<>();
         Collection<String> enumerated = MachineLanguage.enumerate(6);
         enumerated.remove("agentInRoom blockInRoom");
-        int m = sourceExpression.getWords().size();
+        int m = sourceExpression.getWords().size(); // m is length of source and comes from natural language
         double maxLikelihood = Double.NEGATIVE_INFINITY;
         String likelyExpr = "";
-        for(String expr : enumerated){
+        this.delta.entrySet().stream().forEach(e -> System.out.println(e.getKey() + "\t" + e.getValue()));
+//        System.exit(0);
+        for(String expr : this.outputSet){
             String[] exprSplit = expr.split(" ");
-            double likelihood = 1.0;
-            int l = exprSplit.length;
-            likelihood *= Math.pow(this.targetPrior * this.lengthPrior.get(l).get(m), l);
+            int l = exprSplit.length; //l is length of target and comes from machine language
+            double likelihood = 1.0; //Math.pow(this.targetPrior, l);// * this.lengthPrior.get(l).get(m);
             double sum = 0.0;
-            for(int a : this.delta.values().stream().map(v -> v.keySet()).flatMap(x -> x.stream()).collect(Collectors.toSet())) {
+            //for(int a : this.delta.values().stream().map(v -> v.keySet()).flatMap(x -> x.stream()).collect(Collectors.toSet())) {
+            Set<Integer> aVals = this.delta.keySet();
+            for(int a : aVals){
                 a = Math.min(l-1, a);
                 double product = 1.0;
                 for (int k = 0; k < m; k++) {
-                    product *= this.delta.get(k).get(a).get(l).get(m);
+                    product *= this.delta.get(a).get(k).get(l).get(m);
                     product *= this.tau.get(exprSplit[a]).get(sourceSplit.get(k));
                 }
                 sum += product;
@@ -206,14 +234,51 @@ public class IBM2 extends IBMModel implements MachineTranslator{
         return new MachineLanguage(translated);
     }
 
+    public static boolean goodTranslation(List<String> actual, List<String> translated){
+        AtomicBoolean ret = new AtomicBoolean(true);
+        actual.stream().forEach(w -> ret.compareAndSet(!translated.contains(w), false));
+        return ret.get();
+    }
+
+    public static double runLOOTest(ParallelCorpus corpus){
+        AtomicInteger numCorrect = new AtomicInteger(0);
+        IntStream.range(0, corpus.size()).forEachOrdered(i -> {
+            AlignedSent test = corpus.remove(i);
+            List<String> inputWords = test.getSourceWords();
+            List<String> outputWords = test.getTargetWords();
+            IBM2 ibm2 = new IBM2(corpus, 15);
+            NaturalLanguage input = new NaturalLanguage(inputWords);
+            List<String> output = ibm2.translate(input).getWords();
+            if(goodTranslation(outputWords, output)){
+                numCorrect.getAndIncrement();
+                System.out.println("Performed correct translation");
+                System.out.println("Correctly translated: " + output.toString());
+            }
+            else{
+                System.out.println("Performed incorrect translation");
+                System.out.println("Input: " + inputWords.toString());
+                System.out.println("Expected: " + outputWords.toString());
+                System.out.println("Found: " + output.toString());
+            }
+            System.out.println("");
+            corpus.insert(test, i);
+        });
+        return (double) numCorrect.get() / (double) corpus.size();
+    }
+
     public static void main(String[] args){
         String english = "/home/dilip/CSCI2951K/amdpCommands/data/corpus/english.txt";
         String machine = "/home/dilip/CSCI2951K/amdpCommands/data/corpus/machine.txt";
         ParallelCorpus corpus = new ParallelCorpus(english, machine);
-        IBM2 ibm2 = new IBM2(corpus, 15);
-        String command = "take the star to the green room";
-        List<String> test = new ArrayList<>(Arrays.asList(command.split(" ")));
-        LanguageExpression translated = ibm2.translate(new NaturalLanguage(test));
-        System.out.println(translated.getWords());
+        //IBM2 ibm2 = new IBM2(corpus, 15);
+        //String command = "take the star to the green room";
+        //List<String> test = new ArrayList<>(Arrays.asList(command.split(" ")));
+        //LanguageExpression translated = ibm2.translate(new NaturalLanguage(test));
+        //System.out.println(translated.getWords());
+
+
+
+        double accuracy = runLOOTest(corpus);
+        System.out.println("LOO accuracy: " + accuracy);
     }
 }

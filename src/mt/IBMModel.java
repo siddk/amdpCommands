@@ -4,6 +4,7 @@ import structures.AlignedSent;
 import structures.DefaultDict;
 import structures.ParallelCorpus;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -33,6 +34,7 @@ public abstract class IBMModel {
     protected final Set<String> targetVocabulary;
     protected final DefaultDict<Integer, DefaultDict<Integer, Double>> lengthPrior;
     protected final double targetPrior;
+    protected final Set<String> outputSet;
     protected static final String NULL = "**N**";
     protected static final double MIN_PROB = 1.0e-12;
 
@@ -47,6 +49,7 @@ public abstract class IBMModel {
         this.delta = new DefaultDict<>(a -> new DefaultDict<>(b -> new DefaultDict<>(c -> new DefaultDict<>(MIN_PROB))));
         this.sourceVocabulary = new HashSet<>();
         this.targetVocabulary = new HashSet<>();
+        this.outputSet = new HashSet<>();
         this.lengthPrior = new DefaultDict<>(o -> new DefaultDict<>(MIN_PROB));
         this.updateVocabulary(corpus);
         this.computeLengthPrior();
@@ -61,6 +64,11 @@ public abstract class IBMModel {
      */
     public void updateVocabulary(ParallelCorpus corpus) {
         corpus.getSentences().stream().forEach(alignedSent -> {
+            StringBuilder sb = new StringBuilder();
+            for(String w : alignedSent.getTargetWords()){
+                sb.append(w + " ");
+            }
+            this.outputSet.add(sb.toString().trim());
             this.sourceVocabulary.addAll(alignedSent.getSourceWords());
             this.targetVocabulary.addAll(alignedSent.getTargetWords());
         });

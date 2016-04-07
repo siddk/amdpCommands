@@ -16,13 +16,8 @@ public class AlignmentCounts extends Counts {
      */
     public AlignmentCounts() {
         super();
-        this.nIJLM = new DefaultDict<Integer, DefaultDict<Integer, DefaultDict<Integer,
-                DefaultDict<Integer, Double>>>>(new DefaultDict<Integer, DefaultDict<Integer,
-                DefaultDict<Integer, Double>>>(new DefaultDict<Integer, DefaultDict<Integer,
-                Double>>(new DefaultDict<Integer, Double>(0.0))));
-        this.nIO = new DefaultDict<Integer, DefaultDict<Integer, DefaultDict<Integer, Double>>>
-                (new DefaultDict<Integer, DefaultDict<Integer, Double>>(new DefaultDict<Integer,
-                        Double>(0.0)));
+        this.nIJLM = new DefaultDict<>(a -> new DefaultDict<>(b -> new DefaultDict<>(c -> new DefaultDict<>(0.0))));
+        this.nIO = new DefaultDict<>(a -> new DefaultDict<>(b -> new DefaultDict<>(0.0)));
     }
 
     public void updateTau(double count, String s, String t) {
