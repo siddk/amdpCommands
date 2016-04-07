@@ -182,8 +182,8 @@ public class IBM1 extends IBMModel implements MachineTranslator{
     }
 
     public static void main(String[] args){
-        String english = "data/corpus/full_english.txt";
-        String machine = "data/corpus/full_machine.txt";
+        String english = "data/corpus/turk_english.txt";
+        String machine = "data/corpus/turk_machine.txt";
         ParallelCorpus corpus = new ParallelCorpus(english, machine);
 
         double accuracy = runLOOTest(corpus);

@@ -20,7 +20,7 @@ def parse():
     """
     english, machine = [], []
     for directory in os.listdir(raw_data_dir):
-        if not directory == '.DS_Store' and "simple" in directory:
+        if not directory == '.DS_Store' and "Turk" in directory:
             dir_path = os.path.join(raw_data_dir, directory)
             for example in os.listdir(dir_path):
                 if not example == '.DS_Store':
