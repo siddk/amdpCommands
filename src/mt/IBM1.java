@@ -1,13 +1,17 @@
 package mt;
 
 import language.LanguageExpression;
+import language.MachineLanguage;
+import language.NaturalLanguage;
 import structures.AlignedSent;
 import structures.Counts;
 import structures.DefaultDict;
 import structures.ParallelCorpus;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.IntStream;
 
 /**
  * Core class for the IBM Model 1 Translation System. Used to learn simple (naive) translation
@@ -112,6 +116,77 @@ public class IBM1 extends IBMModel implements MachineTranslator{
      */
     @Override
     public LanguageExpression translate(LanguageExpression sourceExpression) {
-        return null;
+        List<String> sourceSplit = sourceExpression.getWords();
+        Map<String, Double> exprProbs = new HashMap<>();
+
+        int m = sourceExpression.getWords().size(); // m is length of source and comes from natural language
+        double maxLikelihood = Double.NEGATIVE_INFINITY;
+        String likelyExpr = "";
+
+        for(String expr : this.outputSet){
+            String[] exprSplit = expr.split(" ");
+            int l = exprSplit.length; //l is length of target and comes from machine language
+            double likelihood = 1.0; //Math.pow(this.targetPrior, l);// * this.lengthPrior.get(l).get(m);
+            double sum = 0.0;
+
+            for (String anExprSplit : exprSplit) {
+                double product = 1.0;
+                for (int k = 0; k < m; k++) {
+                    product *= this.tau.get(sourceSplit.get(k)).get(anExprSplit);
+                }
+                sum += product;
+            }
+            likelihood *= sum;
+            if(likelihood > maxLikelihood){
+                maxLikelihood = likelihood;
+                likelyExpr = expr;
+            }
+            exprProbs.put(expr, likelihood);
+        }
+        List<String> translated = Arrays.asList(likelyExpr.split(" "));
+        exprProbs.entrySet().stream().sorted((e1,e2) -> e1.getValue().compareTo(e2.getValue())).forEachOrdered(System.out::println);
+
+        return new MachineLanguage(translated);
+    }
+
+    public static boolean goodTranslation(List<String> actual, List<String> translated){
+        AtomicBoolean ret = new AtomicBoolean(true);
+        actual.stream().forEach(w -> ret.compareAndSet(!translated.contains(w), false));
+        return ret.get();
+    }
+
+    public static double runLOOTest(ParallelCorpus corpus){
+        AtomicInteger numCorrect = new AtomicInteger(0);
+        IntStream.range(0, corpus.size()).forEachOrdered(i -> {
+            AlignedSent test = corpus.remove(i);
+            List<String> inputWords = test.getSourceWords();
+            List<String> outputWords = test.getTargetWords();
+            IBM1 ibm1 = new IBM1(corpus, 30);
+            NaturalLanguage input = new NaturalLanguage(inputWords);
+            List<String> output = ibm1.translate(input).getWords();
+            if(goodTranslation(outputWords, output)){
+                numCorrect.getAndIncrement();
+                System.out.println("Performed correct translation");
+                System.out.println("Correctly translated: " + output.toString());
+            }
+            else{
+                System.out.println("Performed incorrect translation");
+                System.out.println("Input: " + inputWords.toString());
+                System.out.println("Expected: " + outputWords.toString());
+                System.out.println("Found: " + output.toString());
+            }
+            System.out.println("");
+            corpus.insert(test, i);
+        });
+        return (double) numCorrect.get() / (double) corpus.size();
+    }
+
+    public static void main(String[] args){
+        String english = "data/corpus/full_english.txt";
+        String machine = "data/corpus/full_machine.txt";
+        ParallelCorpus corpus = new ParallelCorpus(english, machine);
+
+        double accuracy = runLOOTest(corpus);
+        System.out.println("LOO accuracy: " + accuracy);
     }
 }
