@@ -71,15 +71,14 @@ public class IBM1 extends IBMModel implements MachineTranslator{
 
         // E - Step
         for (int i = 0; i < this.corpus.size(); i++) {
-
             AlignedSent alignedSent = this.corpus.get(i);
             List<String> sourceSent = alignedSent.getTargetWords();
             List<String> targetSent = alignedSent.getSourceWords();
+
             List<String> nulled = new ArrayList<>();
             nulled.add(NULL);
-            nulled.addAll(targetSent);
-            //sourceSent.add(0, NULL); // Prepend NULL Token
-            targetSent = nulled;
+            nulled.addAll(sourceSent);
+            sourceSent = nulled;
 
             // E - Step (a) - Compute normalization factors
             DefaultDict<String, Double> total_count = new DefaultDict<>(0.0);
@@ -104,7 +103,7 @@ public class IBM1 extends IBMModel implements MachineTranslator{
         for (String t : this.tau.keySet()) {
             for (String s : counts.nTS.get(t).keySet()) {
                 double estimate = counts.nTS.get(t).get(s) / counts.nTO.get(s);
-                this.tau.get(t).put(s, Math.max(estimate, MIN_PROB));
+                this.tau.get(t).put(s, Math.max(estimate, TAU_MIN_PROB));
             }
         }
     }
@@ -123,10 +122,9 @@ public class IBM1 extends IBMModel implements MachineTranslator{
         double maxLikelihood = Double.NEGATIVE_INFINITY;
         String likelyExpr = "";
 
-        for(String expr : this.outputSet){
+        for (String expr : this.outputSet) {
             String[] exprSplit = expr.split(" ");
-            int l = exprSplit.length; //l is length of target and comes from machine language
-            double likelihood = 1.0; //Math.pow(this.targetPrior, l);// * this.lengthPrior.get(l).get(m);
+            double likelihood = 1.0;
             double sum = 0.0;
 
             for (String anExprSplit : exprSplit) {
@@ -182,8 +180,8 @@ public class IBM1 extends IBMModel implements MachineTranslator{
     }
 
     public static void main(String[] args){
-        String english = "data/corpus/turk_english.txt";
-        String machine = "data/corpus/turk_machine.txt";
+        String english = "data/corpus/expert_english.txt";
+        String machine = "data/corpus/expert_machine.txt";
         ParallelCorpus corpus = new ParallelCorpus(english, machine);
 
         double accuracy = runLOOTest(corpus);

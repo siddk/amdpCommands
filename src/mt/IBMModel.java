@@ -37,6 +37,8 @@ public abstract class IBMModel {
     protected final Set<String> outputSet;
     protected static final String NULL = "**N**";
     protected static final double MIN_PROB = 1.0e-12;
+    protected static final double TAU_MIN_PROB = 1.0e-12;
+    protected static final double DELTA_MIN_PROB = 1.0e-15;
 
     /**
      * Instantiate an IBMModel object with the specified parallel corpus.
@@ -45,8 +47,9 @@ public abstract class IBMModel {
      */
     public IBMModel(ParallelCorpus corpus) {
         this.corpus = corpus;
-        this.tau = new DefaultDict<>(o -> new DefaultDict<>(MIN_PROB));
-        this.delta = new DefaultDict<>(a -> new DefaultDict<>(b -> new DefaultDict<>(c -> new DefaultDict<>(MIN_PROB))));
+        this.tau = new DefaultDict<>(o -> new DefaultDict<>(TAU_MIN_PROB));
+        this.delta = new DefaultDict<>(a -> new DefaultDict<>(b -> new DefaultDict<>(c -> new
+                DefaultDict<>(DELTA_MIN_PROB))));
         this.sourceVocabulary = new HashSet<>();
         this.targetVocabulary = new HashSet<>();
         this.outputSet = new HashSet<>();

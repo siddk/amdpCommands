@@ -27,19 +27,6 @@ public class AlignedSent{
         this.align = new Alignment();
     }
 
-    /**
-     * Creates an Aligned Sentence with two language expressions and a specified alignment.
-     *
-     * @param source Expression of the source language
-     * @param target Expression of the target language
-     * @param align Predefined alignment.
-     */
-    public AlignedSent(LanguageExpression source, LanguageExpression target, Alignment align) {
-        this.source = source;
-        this.target = target;
-        this.align = align;
-    }
-
     public List<String> getSourceWords() {
         return this.source.getWords();
     }

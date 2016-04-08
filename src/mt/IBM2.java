@@ -59,19 +59,8 @@ public class IBM2 extends IBMModel implements MachineTranslator{
 
         // Run EM
         for (int i = 0; i < em_iterations; i++) {
-
-            if(i == 3){
-                //System.exit(0);
-            }
             this.train();
-//            System.out.println("Tau: ");
-//            this.tau.entrySet().stream().forEach(e -> System.out.println(e.getKey() + "\t" + e.getValue()));
-//            System.out.println("\n");
-//            System.out.println("Delta: ");
-//            this.delta.entrySet().stream().forEach(e -> System.out.println(e.getKey() + "\t" + e.getValue()));
-//            System.out.println("***********");
         }
-
     }
 
     /**
@@ -112,18 +101,20 @@ public class IBM2 extends IBMModel implements MachineTranslator{
         // E - Step
         for (int index = 0; index < this.corpus.size(); index++) {
             AlignedSent alignedSent = this.corpus.get(index);
-            List<String> targetSent = alignedSent.getSourceWords();
             List<String> sourceSent = alignedSent.getTargetWords();
+            List<String> targetSent = alignedSent.getSourceWords();
+
+            // Prepend NULL Token
             List<String> nulled = new ArrayList<>();
             nulled.add(NULL);
             nulled.addAll(sourceSent);
             sourceSent = nulled;
-            //sourceSent.add(0, NULL); // Prepend NULL Token
-            List<String> modtarget = new ArrayList<>();
-            modtarget.add("UNUSED");
-            modtarget.addAll(targetSent);
-            targetSent = modtarget;
-            //targetSent.add(0, "UNUSED"); // 1 - Indexed
+
+            // Prepend Unused Token to Target (1 - Indexed)
+            List<String> modTarget = new ArrayList<>();
+            modTarget.add("UNUSED");
+            modTarget.addAll(targetSent);
+            targetSent = modTarget;
 
             int l = sourceSent.size() - 1;
             int m = targetSent.size() - 1;
@@ -134,8 +125,8 @@ public class IBM2 extends IBMModel implements MachineTranslator{
                 String t = targetSent.get(j);
                 for (int i = 0; i < sourceSent.size(); i++) {
                     String s = sourceSent.get(i);
-                    totalCount.put(t, this.tau.get(t).get(s) * this.delta.get(i).get(j).get(l).get(m));
-//                    this.delta.entrySet().stream().forEach(e -> System.out.println(e.getKey() + "\t" + e.getValue()));
+                    totalCount.put(t, totalCount.get(t) + (this.tau.get(t).get(s) * this.delta
+                            .get(i).get(j).get(l).get(m)));
                 }
             }
 
@@ -145,23 +136,18 @@ public class IBM2 extends IBMModel implements MachineTranslator{
                 for (int i = 0; i < sourceSent.size(); i++) {
                     String s = sourceSent.get(i);
                     double count = this.tau.get(t).get(s) * this.delta.get(i).get(j).get(l).get(m);
-                    double normalized_count = count / totalCount.get(t);
-                    counts.updateTau(normalized_count, s, t);
-                    counts.updateDelta(normalized_count, i, j, l, m);
+                    double normalizedCount = count / totalCount.get(t);
+
+                    // Update tau counts
+                    counts.nTS.get(t).put(s, counts.nTS.get(t).get(s) + normalizedCount);
+                    counts.nTO.put(s, counts.nTO.get(s) + normalizedCount);
+                    // Update delta counts
+                    counts.nIJLM.get(i).get(j).get(l).put(m, counts.nIJLM.get(i).get(j).get(l).get
+                            (m) + normalizedCount);
+                    counts.nIO.get(j).get(l).put(m, counts.nIO.get(j).get(l).get(m) +
+                            normalizedCount);
                 }
             }
-
-            for(int j =1;j < targetSent.size();j++){
-                String t = targetSent.get(j);
-                for (int i = 0; i < sourceSent.size(); i++) {
-                    String s = sourceSent.get(i);
-                }
-            }
-
-            //this.delta.entrySet().stream().forEach(e -> System.out.println(e.getKey() + "\t" + e.getValue()));
-//            counts.nIJLM.entrySet().stream().forEach(e -> System.out.println(e.getKey() + "\t" + e.getValue()));
-//            System.out.println("******");
-//            counts.nIO.entrySet().stream().forEach(e -> System.out.println(e.getKey() + "\t" + e.getValue()));
         }
 
         // M - Step
@@ -196,31 +182,26 @@ public class IBM2 extends IBMModel implements MachineTranslator{
     public LanguageExpression translate(LanguageExpression sourceExpression) {
         List<String> sourceSplit = sourceExpression.getWords();
         Map<String, Double> exprProbs = new HashMap<>();
-        Collection<String> enumerated = MachineLanguage.enumerate(6);
-        enumerated.remove("agentInRoom blockInRoom");
-        int m = sourceExpression.getWords().size(); // m is length of source and comes from natural language
+        int m = sourceExpression.getWords().size();
         double maxLikelihood = Double.NEGATIVE_INFINITY;
         String likelyExpr = "";
-        this.delta.entrySet().stream().forEach(e -> System.out.println(e.getKey() + "\t" + e.getValue()));
-//        System.exit(0);
-        for(String expr : this.outputSet){
+
+        for (String expr : this.outputSet) {
             String[] exprSplit = expr.split(" ");
-            int l = exprSplit.length; //l is length of target and comes from machine language
-            double likelihood = 1.0; //Math.pow(this.targetPrior, l);// * this.lengthPrior.get(l).get(m);
+            int l = exprSplit.length;
+            double likelihood = this.lengthPrior.get(l).get(m);
             double sum = 0.0;
-            //for(int a : this.delta.values().stream().map(v -> v.keySet()).flatMap(x -> x.stream()).collect(Collectors.toSet())) {
-            Set<Integer> aVals = this.delta.keySet();
-            for(int a : aVals){
-                a = Math.min(l-1, a);
+
+            for (int a = 0; a < l; a++) {
                 double product = 1.0;
                 for (int k = 0; k < m; k++) {
                     product *= this.delta.get(a).get(k).get(l).get(m);
-                    product *= this.tau.get(exprSplit[a]).get(sourceSplit.get(k));
+                    product *= this.tau.get(sourceSplit.get(k)).get(exprSplit[a]);
                 }
                 sum += product;
             }
             likelihood *= sum;
-            if(likelihood > maxLikelihood){
+            if (likelihood > maxLikelihood) {
                 maxLikelihood = likelihood;
                 likelyExpr = expr;
             }
@@ -229,8 +210,6 @@ public class IBM2 extends IBMModel implements MachineTranslator{
         List<String> translated = Arrays.asList(likelyExpr.split(" "));
         exprProbs.entrySet().stream().sorted((e1,e2) -> e1.getValue().compareTo(e2.getValue())).forEachOrdered(System.out::println);
 
-//        System.out.println(this.tau);
-//        System.out.println(this.delta);
         return new MachineLanguage(translated);
     }
 
@@ -246,7 +225,7 @@ public class IBM2 extends IBMModel implements MachineTranslator{
             AlignedSent test = corpus.remove(i);
             List<String> inputWords = test.getSourceWords();
             List<String> outputWords = test.getTargetWords();
-            IBM2 ibm2 = new IBM2(corpus, 15);
+            IBM2 ibm2 = new IBM2(corpus, 10);
             NaturalLanguage input = new NaturalLanguage(inputWords);
             List<String> output = ibm2.translate(input).getWords();
             if(goodTranslation(outputWords, output)){
@@ -267,16 +246,9 @@ public class IBM2 extends IBMModel implements MachineTranslator{
     }
 
     public static void main(String[] args){
-        String english = "/home/dilip/CSCI2951K/amdpCommands/data/corpus/english.txt";
-        String machine = "/home/dilip/CSCI2951K/amdpCommands/data/corpus/machine.txt";
+        String english = "data/corpus/expert_english.txt";
+        String machine = "data/corpus/expert_machine.txt";
         ParallelCorpus corpus = new ParallelCorpus(english, machine);
-        //IBM2 ibm2 = new IBM2(corpus, 15);
-        //String command = "take the star to the green room";
-        //List<String> test = new ArrayList<>(Arrays.asList(command.split(" ")));
-        //LanguageExpression translated = ibm2.translate(new NaturalLanguage(test));
-        //System.out.println(translated.getWords());
-
-
 
         double accuracy = runLOOTest(corpus);
         System.out.println("LOO accuracy: " + accuracy);
